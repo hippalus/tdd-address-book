@@ -16,44 +16,44 @@ public class UserBuilder {
     private String phoneNumber;
     private Set<Address> addresses;
 
+    public User get() {
+        return new User(id, firstName, lastName, emailAddress, birthDate, phoneNumber, addresses);
+    }
+
     public UserBuilder withId(Integer id) {
-        this.id=id;
+        this.id = id;
         return this;
 
     }
 
     public UserBuilder withFirstName(String firstName) {
-        this.firstName=firstName;
+        this.firstName = firstName;
         return this;
     }
 
     public UserBuilder withLastName(String lastName) {
-        this.lastName=lastName;
+        this.lastName = lastName;
         return this;
     }
 
     public UserBuilder withEmailAddress(String emailAddress) {
-        this.emailAddress=emailAddress;
+        this.emailAddress = emailAddress;
         return this;
     }
 
     public UserBuilder withBirthDate(LocalDate birthDate) {
-        this.birthDate=birthDate;
+        this.birthDate = birthDate;
         return this;
     }
 
     public UserBuilder withPhoneNumber(String phoneNumber) {
-        this.phoneNumber=phoneNumber;
+        this.phoneNumber = phoneNumber;
         return this;
     }
 
     public UserBuilder withAddress(Set<Address> addresses) {
-        this.addresses=addresses;
+        this.addresses = addresses;
         return this;
-    }
-
-    public User get() {
-        return new User(id,firstName,lastName,emailAddress,birthDate,phoneNumber,addresses);
     }
 
 

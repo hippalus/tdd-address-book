@@ -1,5 +1,7 @@
 package com.addressbook.domain.model;
 
+
+import com.addressbook.domain.builder.ZipCodeBuilder;
 import lombok.*;
 
 @AllArgsConstructor
@@ -15,5 +17,9 @@ public class ZipCode {
     private String region;
     private final Country country;
 
+
+    public static ZipCodeBuilder aNew() {
+        return new ZipCodeBuilder();
+    }
 
 }

@@ -1,7 +1,6 @@
 package com.addressbook.domain.model;
 
 import com.addressbook.domain.builder.AddressBuilder;
-import com.addressbook.domain.builder.UserBuilder;
 import com.addressbook.domain.enums.AddressType;
 import lombok.*;
 

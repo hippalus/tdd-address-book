@@ -1,5 +1,6 @@
 package com.addressbook.domain.model;
 
+import com.addressbook.domain.builder.CountryBuilder;
 import lombok.*;
 
 @AllArgsConstructor
@@ -12,4 +13,7 @@ public class Country {
     private final String code;
     private final String dialCode;
 
+    public static CountryBuilder aNew() {
+        return new CountryBuilder();
+    }
 }
