@@ -1,11 +1,16 @@
 package com.addressbook.domain.builder;
 
 import com.addressbook.domain.enums.AddressType;
+import com.addressbook.domain.exceptions.BeanValidationException;
 import com.addressbook.domain.model.Address;
 import com.addressbook.domain.model.Country;
 import com.addressbook.domain.model.User;
 import com.addressbook.domain.model.ZipCode;
+import com.addressbook.domain.validation.BeanValidator;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.TestExecutionListeners;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -14,6 +19,20 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserBuilderTest {
+
+    private BeanValidator validator;
+
+    @BeforeEach
+    void init()
+    {
+        validator = new BeanValidator();
+    }
+
+    @AfterEach
+    void terminate() {
+        validator.close();
+    }
+
 
     @Test
     void should_build_a_user_with_id(){
@@ -73,6 +92,123 @@ class UserBuilderTest {
         assertEquals(addresses,user.getAddresses());
 
     }
+    @Test
+    void should_throw_BeanValidationException_if_no_last_name_specified() {
+
+        assertThrows(BeanValidationException.class, () -> User.aNew()
+                .withId(10)
+                .withLastName("")
+                .withFirstName("Jack")
+                .withBirthDate(LocalDate.of(1994, 11, 2))
+                .withAddress(new HashSet<>())
+                .withEmailAddress("jack@gmail.com")
+                .withPhoneNumber("5062333444")
+                .validateAndGet(validator));
+
+        assertThrows(BeanValidationException.class, () -> User.aNew()
+                .withId(10)
+                .withLastName(null)
+                .withFirstName("Jack")
+                .withBirthDate(LocalDate.of(1994, 11, 2))
+                .withAddress(new HashSet<>())
+                .withEmailAddress("jack@gmail.com")
+                .withPhoneNumber("5062333444")
+                .validateAndGet(validator));
+
+    }
+
+    @Test
+    void should_throw_BeanValidationException_if_no_first_name_specified() {
+
+        assertThrows(BeanValidationException.class, () -> User.aNew()
+                .withId(10)
+                .withLastName("Jones")
+                .withFirstName(null)
+                .withBirthDate(LocalDate.of(1994, 11, 2))
+                .withAddress(new HashSet<>())
+                .withEmailAddress("jack@gmail.com")
+                .withPhoneNumber("5062333444")
+                .validateAndGet(validator));
+
+        assertThrows(BeanValidationException.class, () -> User.aNew()
+                .withId(10)
+                .withLastName("Jones")
+                .withFirstName("")
+                .withBirthDate(LocalDate.of(1994, 11, 2))
+                .withAddress(new HashSet<>())
+                .withEmailAddress("jack@gmail.com")
+                .withPhoneNumber("5062333444")
+                .validateAndGet(validator));
+
+    }
+
+    @Test
+    void should_throw_BeanValidationException_if_no_address_specified() {
+
+        assertThrows(BeanValidationException.class, () -> User.aNew()
+                .withId(10)
+                .withLastName("Jones")
+                .withFirstName("Jack")
+                .withBirthDate(LocalDate.of(1994, 11, 2))
+                .withAddress(null)
+                .withEmailAddress("jack@gmail.com")
+                .withPhoneNumber("5062333444")
+                .validateAndGet(validator));
+
+    }
+
+    @Test
+    void should_throw_BeanValidationException_if_no_phone_number_specified() {
+
+        assertThrows(BeanValidationException.class, () -> User.aNew()
+                .withId(10)
+                .withLastName("Jones")
+                .withFirstName("Jack")
+                .withBirthDate(LocalDate.of(1994, 11, 2))
+                .withAddress(new HashSet<>())
+                .withEmailAddress("jack@gmail.com")
+                .withPhoneNumber("455646546546550623444")
+                .validateAndGet(validator));
+
+        assertThrows(BeanValidationException.class, () -> User.aNew()
+                .withId(10)
+                .withLastName("Jones")
+                .withFirstName("Jack")
+                .withBirthDate(LocalDate.of(1994, 11, 2))
+                .withAddress(new HashSet<>())
+                .withEmailAddress("jack@gmail.com")
+                .withPhoneNumber("null")
+                .validateAndGet(validator));
+
+        assertThrows(BeanValidationException.class, () -> User.aNew()
+                .withId(10)
+                .withLastName("Jones")
+                .withFirstName("Jack")
+                .withBirthDate(LocalDate.of(1994, 11, 2))
+                .withAddress(new HashSet<>())
+                .withEmailAddress("jack@gmail.com")
+                .withPhoneNumber(null)
+                .validateAndGet(validator));
+
+
+
+    }
+    @Test
+    void should_build_all_args(){
+        assertNotNull(User.aNew()
+                .withId(10)
+                .withLastName("Jones")
+                .withFirstName("Jack")
+                .withBirthDate(LocalDate.of(1994, 11, 2))
+                .withAddress(new HashSet<>())
+                .withEmailAddress("jack@gmail.com")
+                .withPhoneNumber("5061326565")
+                .validateAndGet(validator));
+    }
+
+
+
+
 
 
 }

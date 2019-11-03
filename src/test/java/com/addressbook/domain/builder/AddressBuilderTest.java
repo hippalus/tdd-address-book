@@ -1,9 +1,15 @@
 package com.addressbook.domain.builder;
 
+import com.addressbook.domain.enums.AddressType;
+import com.addressbook.domain.exceptions.BeanValidationException;
 import com.addressbook.domain.model.Address;
 import com.addressbook.domain.model.Country;
 import com.addressbook.domain.model.User;
 import com.addressbook.domain.model.ZipCode;
+
+import com.addressbook.domain.validation.BeanValidator;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -12,8 +18,22 @@ import java.util.Set;
 
 import static com.addressbook.domain.enums.AddressType.BUSINESS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AddressBuilderTest {
+
+    private BeanValidator validator;
+
+    @BeforeEach
+     void init()
+    {
+        validator = new BeanValidator();
+    }
+
+    @AfterEach
+     void terminate() {
+        validator.close();
+    }
 
 
     @Test
@@ -85,5 +105,66 @@ class AddressBuilderTest {
         assertEquals(users, address.getUsers());
 
     }
+
+    @Test
+    void should_throw_BeanValidationException_when_address_type_is_null(){
+        assertThrows(BeanValidationException.class,() -> Address.aNew()
+                .withOtherDescription("There is next to a lady")
+                .validateAndGet(validator));
+    }
+    @Test
+    void should_throw_BeanValidationException_when_zip_code_is_null(){
+        assertThrows(BeanValidationException.class,() -> Address.aNew()
+                .withOtherDescription("There is next to a lady")
+                .withAddressType(BUSINESS)
+                .withTitle("Amazon")
+                .withZipCode(null)
+                .validateAndGet(validator));
+    }
+    @Test
+    void should_throw_BeanValidationException_when_address_detail_is_blank(){
+        assertThrows(BeanValidationException.class,() -> Address.aNew()
+                .withOtherDescription("There is next to a lady")
+                .withAddressType(BUSINESS)
+                .withTitle("Amazon")
+                .withAddressDetail("")
+                .withZipCode(ZipCode.aNew()
+                        .withId(33)
+                        .withPostalCode("15488")
+                        .withProvince("Istanbul")
+                        .withDistrict("Pendik")
+                        .withStreet("Yenisehir")
+                        .withCountry(Country.aNew()
+                                .withId(2)
+                                .withName("Turkey")
+                                .withCode("TR")
+                                .withDialCode("+90")
+                                .validateAndGet(validator))
+                        .validateAndGet(validator))
+                .validateAndGet(validator));
+    }
+    @Test
+    void should_throw_BeanValidationException_when_address_detail_is_null(){
+        assertThrows(BeanValidationException.class,() -> Address.aNew()
+                .withOtherDescription("There is next to a lady")
+                .withAddressType(BUSINESS)
+                .withTitle("Amazon")
+                .withAddressDetail(null)
+                .withZipCode(ZipCode.aNew()
+                        .withId(33)
+                        .withPostalCode("15488")
+                        .withProvince("Istanbul")
+                        .withDistrict("Pendik")
+                        .withStreet("Yenisehir")
+                        .withCountry(Country.aNew()
+                                .withId(2)
+                                .withName("Turkey")
+                                .withCode("TR")
+                                .withDialCode("+90")
+                                .validateAndGet(validator))
+                        .validateAndGet(validator))
+                .validateAndGet(validator));
+    }
+
 
 }

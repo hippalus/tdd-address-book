@@ -6,7 +6,7 @@ import com.addressbook.domain.model.User;
 import java.time.LocalDate;
 import java.util.Set;
 
-public class UserBuilder {
+public class UserBuilder implements IValidatableBuilder<User> {
 
     private Integer id;
     private String firstName;
@@ -16,6 +16,7 @@ public class UserBuilder {
     private String phoneNumber;
     private Set<Address> addresses;
 
+    @Override
     public User get() {
         return new User(id, firstName, lastName, emailAddress, birthDate, phoneNumber, addresses);
     }

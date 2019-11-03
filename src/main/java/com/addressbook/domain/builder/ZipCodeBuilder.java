@@ -1,13 +1,11 @@
 package com.addressbook.domain.builder;
 
-import com.addressbook.domain.exceptions.PropertyRequiredException;
+
 import com.addressbook.domain.model.Country;
 import com.addressbook.domain.model.ZipCode;
 
-import static com.addressbook.domain.constants.DomainConstants.*;
-import static java.util.Objects.*;
 
-public class ZipCodeBuilder {
+public class ZipCodeBuilder implements IValidatableBuilder<ZipCode> {
 
     private Integer id;
     private String postalCode;
@@ -17,18 +15,10 @@ public class ZipCodeBuilder {
     private String region; //optional
     private Country country;
 
+    @Override
     public ZipCode get() {
-        checkModelProperties();
+
         return new ZipCode(id, postalCode, province, district, street, region, country);
-    }
-
-    private void checkModelProperties() {
-        if (isNull(this.postalCode)) throw new PropertyRequiredException(ENTITY_ZIP_CODE, "postalCode");
-        if (isNull(this.province)) throw new PropertyRequiredException(ENTITY_ZIP_CODE, "province");
-        if (isNull(this.district)) throw new PropertyRequiredException(ENTITY_ZIP_CODE, "district");
-        if (isNull(this.street)) throw new PropertyRequiredException(ENTITY_ZIP_CODE, "street");
-        if (isNull(this.country)) throw new PropertyRequiredException(ENTITY_ZIP_CODE, "country");
-
     }
 
     public ZipCodeBuilder withId(Integer id) {

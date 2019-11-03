@@ -1,14 +1,30 @@
 package com.addressbook.domain.builder;
 
-import com.addressbook.domain.exceptions.PropertyRequiredException;
+import com.addressbook.domain.exceptions.BeanValidationException;
 import com.addressbook.domain.model.Country;
 import com.addressbook.domain.model.ZipCode;
+import com.addressbook.domain.validation.BeanValidator;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ZipCodeBuilderTest {
+    private BeanValidator validator;
+
+    @BeforeEach
+    void init()
+    {
+        validator = new BeanValidator();
+    }
+
+    @AfterEach
+    void terminate() {
+        validator.close();
+    }
+
 
     @Test
     void should_build_a_zip_code_with_all_property() {
@@ -40,38 +56,146 @@ class ZipCodeBuilderTest {
     }
 
     @Test
-    void should_throw_PropertyRequiredException_if_no_postal_code_specified() {
+    void should_throw_BeanValidationException_if_no_postal_code_specified() {
 
-        Exception ex = assertThrows(PropertyRequiredException.class, () -> ZipCode.aNew().withId(1).get());
-        assertEquals("Property postalCode of model ZipCode must not be null !", ex.getMessage());
+      assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+              .withId(33)
+              .withPostalCode("")
+              .withProvince("Istanbul")
+              .withDistrict("Pendik")
+              .withStreet("Yenisehir")
+              .withCountry(Country.aNew()
+                      .withId(2)
+                      .withName("Turkey")
+                      .withCode("TR")
+                      .withDialCode("+90")
+                      .validateAndGet(validator))
+              .validateAndGet(validator));
+
+        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+                .withId(33)
+                .withPostalCode(null)
+                .withProvince("Istanbul")
+                .withDistrict("Pendik")
+                .withStreet("Yenisehir")
+                .withCountry(Country.aNew()
+                        .withId(2)
+                        .withName("Turkey")
+                        .withCode("TR")
+                        .withDialCode("+90")
+                        .validateAndGet(validator))
+                .validateAndGet(validator));
     }
 
     @Test
-    void should_throw_PropertyRequiredException_if_no_province_specified() {
+    void should_throw_BeanValidationException_if_no_province_specified() {
 
-        Exception ex = assertThrows(PropertyRequiredException.class, () -> ZipCode.aNew().withPostalCode("15488").get());
-        assertEquals("Property province of model ZipCode must not be null !", ex.getMessage());
+        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+                .withId(33)
+                .withPostalCode("65465")
+                .withProvince("")
+                .withDistrict("Pendik")
+                .withStreet("Yenisehir")
+                .withCountry(Country.aNew()
+                        .withId(2)
+                        .withName("Turkey")
+                        .withCode("TR")
+                        .withDialCode("+90")
+                        .validateAndGet(validator))
+                .validateAndGet(validator));
+
+        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+                .withId(33)
+                .withPostalCode("54564")
+                .withProvince(null)
+                .withDistrict("Pendik")
+                .withStreet("Yenisehir")
+                .withCountry(Country.aNew()
+                        .withId(2)
+                        .withName("Turkey")
+                        .withCode("TR")
+                        .withDialCode("+90")
+                        .validateAndGet(validator))
+                .validateAndGet(validator));
     }
 
     @Test
-    void should_throw_PropertyRequiredException_if_no_district_specified() {
+    void should_throw_BeanValidationException_if_no_district_specified() {
 
-        Exception ex = assertThrows(PropertyRequiredException.class, () -> ZipCode.aNew().withPostalCode("15488").withProvince("Istanbul").get());
-        assertEquals("Property district of model ZipCode must not be null !", ex.getMessage());
+        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+                .withId(33)
+                .withPostalCode("545546")
+                .withProvince("Istanbul")
+                .withDistrict("")
+                .withStreet("Yenisehir")
+                .withCountry(Country.aNew()
+                        .withId(2)
+                        .withName("Turkey")
+                        .withCode("TR")
+                        .withDialCode("+90")
+                        .validateAndGet(validator))
+                .validateAndGet(validator));
+
+        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+                .withId(33)
+                .withPostalCode("4224")
+                .withProvince("Istanbul")
+                .withDistrict(null)
+                .withStreet("Yenisehir")
+                .withCountry(Country.aNew()
+                        .withId(2)
+                        .withName("Turkey")
+                        .withCode("TR")
+                        .withDialCode("+90")
+                        .validateAndGet(validator))
+                .validateAndGet(validator));
     }
 
     @Test
-    void should_throw_PropertyRequiredException_if_no_street_specified() {
+    void should_throw_BeanValidationException_if_no_street_specified() {
 
-        Exception ex = assertThrows(PropertyRequiredException.class, () -> ZipCode.aNew().withPostalCode("15488").withProvince("Istanbul").withDistrict("Pendik").get());
-        assertEquals("Property street of model ZipCode must not be null !", ex.getMessage());
+        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+                .withId(33)
+                .withPostalCode("5465")
+                .withProvince("Istanbul")
+                .withDistrict("Pendik")
+                .withStreet("")
+                .withCountry(Country.aNew()
+                        .withId(2)
+                        .withName("Turkey")
+                        .withCode("TR")
+                        .withDialCode("+90")
+                        .validateAndGet(validator))
+                .validateAndGet(validator));
+
+        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+                .withId(33)
+                .withPostalCode("5465")
+                .withProvince("Istanbul")
+                .withDistrict("Pendik")
+                .withStreet(null)
+                .withCountry(Country.aNew()
+                        .withId(2)
+                        .withName("Turkey")
+                        .withCode("TR")
+                        .withDialCode("+90")
+                        .validateAndGet(validator))
+                .validateAndGet(validator));
+
     }
 
     @Test
-    void should_throw_PropertyRequiredException_if_no_country_specified() {
+    void should_throw_BeanValidationException_if_no_country_specified() {
 
-        Exception ex = assertThrows(PropertyRequiredException.class, () -> ZipCode.aNew().withPostalCode("15488").withProvince("Istanbul").withDistrict("Pendik").withStreet("Yenisehir").get());
-        assertEquals("Property country of model ZipCode must not be null !", ex.getMessage());
+        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+                .withId(33)
+                .withPostalCode("5465")
+                .withProvince("Istanbul")
+                .withDistrict("Pendik")
+                .withStreet("KurtKoy")
+                .withCountry(null)
+                .validateAndGet(validator));
+
     }
 
 

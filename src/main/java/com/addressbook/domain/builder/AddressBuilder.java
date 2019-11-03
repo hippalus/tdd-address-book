@@ -7,7 +7,7 @@ import com.addressbook.domain.model.ZipCode;
 
 import java.util.Set;
 
-public class AddressBuilder {
+public class AddressBuilder implements IValidatableBuilder<Address> {
     private Integer id;
     private String title;
     private AddressType addressType;
@@ -16,6 +16,7 @@ public class AddressBuilder {
     private String otherDescription;
     private Set<User> users;
 
+    @Override
     public Address get() {
         return new Address(id,title,addressType,zipCode,addressDetail,otherDescription,users);
     }
@@ -32,7 +33,6 @@ public class AddressBuilder {
     }
 
     public AddressBuilder withAddressType(AddressType addressType) {
-
         this.addressType=addressType;
         return this;
     }
@@ -56,4 +56,6 @@ public class AddressBuilder {
         this.users=users;
         return this;
     }
+
+
 }

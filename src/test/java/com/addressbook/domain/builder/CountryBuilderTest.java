@@ -1,13 +1,29 @@
 package com.addressbook.domain.builder;
 
-import com.addressbook.domain.exceptions.PropertyRequiredException;
+import com.addressbook.domain.exceptions.BeanValidationException;
 import com.addressbook.domain.model.Country;
+import com.addressbook.domain.validation.BeanValidator;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CountryBuilderTest {
+    private BeanValidator validator;
+
+    @BeforeEach
+     void init()
+    {
+        validator = new BeanValidator();
+    }
+
+    @AfterEach
+     void terminate() {
+        validator.close();
+    }
 
     @Test
     void should_build_a_country_with_all_property(){
@@ -20,22 +36,41 @@ public class CountryBuilderTest {
 
     }
     @Test
-    void should_throw_PropertyRequiredException_if_no_name_specified(){
+    void should_throw_BeanValidationException_when_name_is_null(){
 
-        Exception ex=assertThrows(PropertyRequiredException.class,()-> Country.aNew().withId(1).get());
-        assertEquals( "Property name of model Country must not be null !",ex.getMessage() );
+        assertThrows(BeanValidationException.class,()-> Country.aNew().withId(1).withName(null).withCode("TR").validateAndGet(validator));
+
     }
     @Test
-    void should_throw_PropertyRequiredException_if_no_code_specified(){
+    void should_throw_BeanValidationException_when_name_is_blank(){
 
-        Exception ex=assertThrows(PropertyRequiredException.class,()-> Country.aNew().withId(1).withName("Turkey").get());
-        assertEquals( "Property code of model Country must not be null !",ex.getMessage() );
+        assertThrows(BeanValidationException.class,()-> Country.aNew().withId(1).withName("").withCode("TR").validateAndGet(validator));
+
     }
     @Test
-    void should_throw_PropertyRequiredException_if_no_dial_code_specified(){
+    void should_throw_BeanValidationException_when_code_is_null(){
 
-        Exception ex=assertThrows(PropertyRequiredException.class,()-> Country.aNew().withId(1).withName("Turkey").withCode("TR").get());
-        assertEquals( "Property dialCode of model Country must not be null !",ex.getMessage() );
+        assertThrows(BeanValidationException.class,()-> Country.aNew().withId(1).withName(null).validateAndGet(validator));
+
     }
+    @Test
+    void should_throw_BeanValidationException_when_code_is_blank(){
+
+        assertThrows(BeanValidationException.class,()-> Country.aNew().withId(1).withName(null).withCode("").validateAndGet(validator));
+
+    }
+    @Test
+    void should_throw_BeanValidationException_when_dial_code_is_blank(){
+
+        assertThrows(BeanValidationException.class,()-> Country.aNew().withId(1).withName("Turkey").withCode("TR").withDialCode("").validateAndGet(validator));
+
+    }
+    @Test
+    void should_throw_BeanValidationException_when_dial_code_is_null(){
+
+        assertThrows(BeanValidationException.class,()-> Country.aNew().withId(1).withName("Turkey").withCode("TR").withDialCode(null).validateAndGet(validator));
+
+    }
+
 
 }
