@@ -1,5 +1,7 @@
 package com.addressbook.domain.model;
 
+import com.addressbook.domain.builder.UserBuilder;
+
 import lombok.*;
 
 import java.time.LocalDate;
@@ -10,7 +12,6 @@ import java.util.Set;
 @EqualsAndHashCode
 @Getter
 @Setter
-@ToString
 public class User implements IUser {
 
     private Integer id;
@@ -25,5 +26,10 @@ public class User implements IUser {
     @Override
     public String getFullName() {
         return String.format("%s %s", firstName, lastName);
+    }
+
+
+    public static UserBuilder aNew(){
+        return new UserBuilder();
     }
 }

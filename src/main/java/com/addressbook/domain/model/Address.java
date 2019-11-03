@@ -1,5 +1,7 @@
 package com.addressbook.domain.model;
 
+import com.addressbook.domain.builder.AddressBuilder;
+import com.addressbook.domain.builder.UserBuilder;
 import com.addressbook.domain.enums.AddressType;
 import lombok.*;
 
@@ -8,7 +10,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Setter@Getter@ToString
+@Setter@Getter
 public class Address {
     private Integer id;
     private String title;
@@ -18,5 +20,9 @@ public class Address {
     private String otherDescription;
     private Set<User> users;
 
+
+    public static AddressBuilder aNew() {
+        return new AddressBuilder();
+    }
 
 }

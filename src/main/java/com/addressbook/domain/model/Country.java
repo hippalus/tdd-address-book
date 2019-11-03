@@ -2,8 +2,6 @@ package com.addressbook.domain.model;
 
 import lombok.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
-
 @AllArgsConstructor
 @EqualsAndHashCode
 @Setter@Getter
