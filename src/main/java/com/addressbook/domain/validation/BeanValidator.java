@@ -1,11 +1,13 @@
 package com.addressbook.domain.validation;
 
 import com.addressbook.domain.exceptions.BeanValidationException;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.FieldError;
 
 import javax.validation.*;
 import java.util.Set;
 
+@Component
 public class BeanValidator {
     private ValidatorFactory factory;
 
