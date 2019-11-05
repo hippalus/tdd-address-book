@@ -4,14 +4,21 @@ package com.addressbook.domain.model;
 import com.addressbook.domain.builder.ZipCodeBuilder;
 import lombok.*;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
+@Entity
+@Table(name = "tbl_zip_code")
 @AllArgsConstructor
 @Getter@Setter
 @EqualsAndHashCode@ToString
 public class ZipCode {
-
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Positive
     private Integer id;
     @NotNull @NotBlank
     private String postalCode;
@@ -23,6 +30,8 @@ public class ZipCode {
     private String street; //neighborhood or street
     private String region;
     @NotNull
+    @ManyToOne
+    @JoinColumn(name = "country_id", referencedColumnName = "id")
     private Country country;
 
 

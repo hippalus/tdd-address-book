@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /xxx
+    session:
+      timeout: 900
+spring:
+  flyway:
+    enabled: false
+  application.name: adressbook.io-restapi
+  pidfile: ${java.io.tmpdir}/adressbook.io-restapi.pid
+  datasource:
+    driverClassName: org.h2.Driver
+    poolName: bird.io-restapi-dbconnectionpool
+    url: jdbc:h2:mem:addressbook
+    username: root
+    password: root123
+  jpa:
+    database: H2
+    show-sql: true
+    hibernate:
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      ddl-auto: create-drop

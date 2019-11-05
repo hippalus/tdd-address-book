@@ -1,3 +1,30 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    session:
+      timeout: 900
 spring:
+  application.name: adressbook.io-restapi
+  pidfile: ${java.io.tmpdir}/adressbook.io-restapi.pid
+  jackson:
+    # https://stackoverflow.com/questions/30558047/spring-boot-return-dates-not-as-timestamps
+    # http://www.baeldung.com/jackson-serialize-dates
+    serialization:
+      write_dates_as_timestamps: false
+  jpa:
+    open-in-view: true
+    show-sql: true
+    hibernate:
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      ddl-auto: create-drop
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:addressbook
+    username: root
+    password: root123
   flyway:
     enabled: false
+  messages:
+    basename: i18n/messages
+

@@ -44,14 +44,11 @@ class AddressDTOMapperTest extends BaseMockitoTest {
     @Test
     void should_convert_entity_to_dto() {
 
-        Address address = BeanUtils.createAddressEntity(45, validator);
+        Address address = BeanUtils.createAddressEntity(45);
 
-        Set<Address> addressSet=new HashSet<>();
-        addressSet.add(address);
+        AddressDTO addressDTO = addressDTOMapper.toDto(address);
 
-        Set<AddressDTO> addressDTO = addressDTOMapper.toDto(addressSet);
-
-          assertEquals(addressDTO.size(),addressSet.size());
+          assertEquals(45,addressDTO.getId());
     }
 
 }

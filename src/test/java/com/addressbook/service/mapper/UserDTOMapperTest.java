@@ -1,6 +1,7 @@
 package com.addressbook.service.mapper;
 
 import com.addressbook.config.BaseMockitoTest;
+import com.addressbook.domain.model.Address;
 import com.addressbook.domain.model.User;
 import com.addressbook.domain.validation.BeanValidator;
 import com.addressbook.service.BeanUtils;
@@ -8,6 +9,9 @@ import com.addressbook.service.dto.UserDTO;
 import org.junit.jupiter.api.Test;
 import org.mockito.Spy;
 
+
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +42,7 @@ class UserDTOMapperTest extends BaseMockitoTest {
     @Test
     void should_convert_entity_to_dto() {
 
-        User user = BeanUtils.createUserEntity(45, validator);
+        User user = BeanUtils.createUserEntity(45);
 
         UserDTO userDTO = userDTOMapper.toDto(user);
 
@@ -48,5 +52,15 @@ class UserDTOMapperTest extends BaseMockitoTest {
         assertEquals(userDTO.getFirstName(),user.getFirstName());
         assertEquals(userDTO.getPhoneNumber(),user.getPhoneNumber());
 
+    }
+    @Test
+     void should_not_validate_user()
+    {
+        UserDTO dto =BeanUtils.createUserDTO(85);
+        dto.setEmailAddress("invalid");
+        dto.setAddresses(null);
+
+        assertThrows(NullPointerException.class,()->userDTOMapper.toEntity(dto));
+      
     }
 }

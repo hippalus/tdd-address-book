@@ -11,7 +11,7 @@ public class CountryDTOMapper {
 
     @Autowired
     private BeanValidator validator;
-
+    @Autowired
     public CountryDTOMapper(BeanValidator beanValidator) {
         this.validator = beanValidator;
     }

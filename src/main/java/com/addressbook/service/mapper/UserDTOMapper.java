@@ -7,15 +7,14 @@ import com.addressbook.service.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 
 @Component
 public class UserDTOMapper {
-    @Autowired
     private BeanValidator validator;
-
-    @Autowired
     private AddressDTOMapper addressDTOMapper;
-
+    @Autowired
     public UserDTOMapper(BeanValidator validator,AddressDTOMapper addressDTOMapper) {
         this.validator=validator;
         this.addressDTOMapper=addressDTOMapper;
@@ -36,7 +35,9 @@ public class UserDTOMapper {
 
     public UserDTO toDto(User user) {
         UserDTO userDTO=new UserDTO();
-        userDTO.setAddresses(addressDTOMapper.toDto(user.getAddresses()));
+        userDTO.setAddresses(user.getAddresses().stream()
+                .map(address -> addressDTOMapper.toDto(address))
+                .collect(Collectors.toSet()));
         userDTO.setPhoneNumber(user.getPhoneNumber());
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());

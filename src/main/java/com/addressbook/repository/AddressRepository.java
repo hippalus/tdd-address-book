@@ -1,11 +1,10 @@
 package com.addressbook.repository;
 
-import com.addressbook.domain.model.User;
+import com.addressbook.domain.model.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User,Integer> {
-
+public interface AddressRepository extends JpaRepository<Address,Integer> {
 
 }

@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.addressbook.domain.enums.AddressType.BUSINESS;
+import static com.addressbook.domain.enums.AddressType.HOME;
 
 public class BeanUtils {
     private BeanUtils() {
@@ -25,7 +26,7 @@ public class BeanUtils {
 
     public static UserDTO createUserDTO(Integer id) {
         Set<AddressDTO> addressDTOSet = new HashSet<>();
-        addressDTOSet.add(createAddressDTO(id));
+        addressDTOSet.add(createAddressDTO(1));
         UserDTO userDTO = new UserDTO();
         userDTO.setId(id);
         userDTO.setBirthDate(LocalDate.of(1994, 11, 2));
@@ -40,11 +41,11 @@ public class BeanUtils {
     public static AddressDTO createAddressDTO(Integer id) {
         AddressDTO addressDto = new AddressDTO();
         addressDto.setId(id);
-        addressDto.setAddressType(AddressType.HOME);
+        addressDto.setAddressType(HOME);
         addressDto.setAddressDetail("Brown Street");
         addressDto.setOtherDescription("Go addressDetail ahead follow this rote there is on the left");
         addressDto.setTitle("My Home Address");
-        addressDto.setZipCode(createZipCodeDTO(id));
+        addressDto.setZipCode(createZipCodeDTO(1));
         addressDto.setAddressDetail("Brown Street");
         return addressDto;
     }
@@ -69,47 +70,48 @@ public class BeanUtils {
         return countryDTO;
     }
 
-    public static User createUserEntity(Integer id, BeanValidator validator) {
-        Set<Address> addresses=new HashSet<>();
-        addresses.add(createAddressEntity(id,validator));
+    public static User createUserEntity(Integer id) {
+        Set<Address> addresses = new HashSet<>();
+        addresses.add(createAddressEntity(id));
         return User.aNew()
                 .withId(id)
                 .withLastName("Isler")
                 .withFirstName("Habip Hakan")
                 .withBirthDate(LocalDate.of(1994, 11, 2))
-                .withEmailAddress("habiphakan@live.com")
-                .withPhoneNumber("5064665989")
+                .withEmailAddress("habip@hisler.com")
+                .withPhoneNumber("5435154878")
                 .withAddress(addresses)
-                .validateAndGet(validator);
+                .get();
     }
 
-    public static Address createAddressEntity(Integer id,BeanValidator validator) {
+    public static Address createAddressEntity(Integer id) {
         return Address.aNew()
-                .withOtherDescription("There is next to a lady")
-                .withAddressType(BUSINESS)
-                .withTitle("Amazon")
-                .withAddressDetail("next to train station")
-                .withZipCode(createZipCodeEntity(id,validator))
-                .validateAndGet(validator);
+                .withId(id)
+                .withOtherDescription("Go addressDetail ahead follow this rote there is on the left")
+                .withAddressType(HOME)
+                .withTitle("My Home Address")
+                .withAddressDetail("Brown Street")
+                .withZipCode(createZipCodeEntity(id))
+                .get();
     }
 
-    public static  ZipCode createZipCodeEntity(Integer id,BeanValidator validator){
+    public static ZipCode createZipCodeEntity(Integer id) {
         return ZipCode.aNew()
                 .withId(id)
-                .withPostalCode("15488")
+                .withPostalCode("345100")
                 .withProvince("Istanbul")
                 .withDistrict("Pendik")
-                .withStreet("Yenisehir")
-                .withCountry(createCountryEntity(id,validator))
-                .validateAndGet(validator);
+                .withStreet("Camlik")
+                .withCountry(createCountryEntity(id))
+                .get();
     }
 
-    public static Country createCountryEntity(Integer id ,BeanValidator validator){
+    public static Country createCountryEntity(Integer id) {
         return Country.aNew()
                 .withId(id)
                 .withName("Turkey")
                 .withCode("TR")
                 .withDialCode("+90")
-                .validateAndGet(validator);
+                .get();
     }
 }

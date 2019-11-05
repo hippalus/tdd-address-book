@@ -12,12 +12,10 @@ import java.util.stream.Collectors;
 
 @Component
 public class AddressDTOMapper {
-    @Autowired
+
     private  BeanValidator validator;
-
-    @Autowired
     private  ZipCodeDTOMapper zipCodeDTOMapper;
-
+    @Autowired
     public AddressDTOMapper(BeanValidator validator,ZipCodeDTOMapper zipCodeDTOMapper) {
         this.validator=validator;
         this.zipCodeDTOMapper=zipCodeDTOMapper;
@@ -48,11 +46,16 @@ public class AddressDTOMapper {
 
     }
 
-    public Set<AddressDTO> toDto(Set<Address> addresses) {
-        return addresses.stream().map(address -> new AddressDTO(address.getId(), address.getTitle(),
-                address.getAddressType(), zipCodeDTOMapper.toDto(address.getZipCode())
-                , address.getAddressDetail()
-                , address.getOtherDescription()))
-                .collect(Collectors.toSet());
+    public AddressDTO toDto(Address address) {
+
+        AddressDTO addressDTO=new AddressDTO();
+        addressDTO.setId(address.getId());
+        addressDTO.setTitle(address.getTitle());
+        addressDTO.setZipCode(zipCodeDTOMapper.toDto(address.getZipCode()));
+        addressDTO.setAddressType(address.getAddressType());
+        addressDTO.setAddressDetail(address.getAddressDetail());
+        addressDTO.setOtherDescription(address.getOtherDescription());
+
+        return addressDTO;
     }
 }

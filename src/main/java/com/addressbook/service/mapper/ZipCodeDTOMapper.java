@@ -13,7 +13,7 @@ public class ZipCodeDTOMapper {
     private BeanValidator validator;
     @Autowired
     private CountryDTOMapper countryDTOMapper;
-
+    @Autowired
     public ZipCodeDTOMapper(BeanValidator validator, CountryDTOMapper countryDTOMapper) {
         this.validator=validator;
         this.countryDTOMapper=countryDTOMapper;
@@ -40,6 +40,6 @@ public class ZipCodeDTOMapper {
         zipCodeDTO.setStreet(zipCode.getStreet());
         zipCodeDTO.setRegion(zipCode.getRegion());
         zipCodeDTO.setCountry(countryDTOMapper.toDto(zipCode.getCountry()));
-        return null;
+        return zipCodeDTO;
     }
 }
