@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ZipCodeDTOMapper {
 
-    @Autowired
     private BeanValidator validator;
-    @Autowired
+
     private CountryDTOMapper countryDTOMapper;
+
     @Autowired
     public ZipCodeDTOMapper(BeanValidator validator, CountryDTOMapper countryDTOMapper) {
         this.validator=validator;

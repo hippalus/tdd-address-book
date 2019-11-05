@@ -25,7 +25,8 @@ public class Address {
     @NotNull
     @Enumerated(EnumType.STRING)
     private AddressType addressType;
-    @NotNull@OneToOne
+    @NotNull@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "zip_code_id", referencedColumnName = "id")
     private ZipCode zipCode;
     @NotNull@NotBlank
     private String addressDetail;

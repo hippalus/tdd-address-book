@@ -24,7 +24,7 @@ public class AddressService implements IService {
     private AddressRepository addressRepository;
     @Autowired
     private ZipCodeService zipCodeService;
-    @Autowired
+    @Autowired//fixme setter base injection
     private AddressDTOMapper addressDTOMapper=new AddressDTOMapper(new BeanValidator(),new ZipCodeDTOMapper(new BeanValidator(),new CountryDTOMapper(new BeanValidator())));
 
 
@@ -38,7 +38,7 @@ public class AddressService implements IService {
 
         if(!zipCodeService.checkIfExists(addressDTO.getZipCode().getId())){
             //todo custom ex handler
-            throw new RuntimeException();
+            throw new RuntimeException(String.format(" Zip Code Exists %s", addressDTO.getZipCode().toString()));
         }
 
         Address address=addressDTOMapper.toEntity(addressDTO);
@@ -50,7 +50,7 @@ public class AddressService implements IService {
         //todo custom ex handler
         return addressRepository.findById(id)
                 .map(addressDTOMapper::toDto)
-                .orElseThrow(() -> new RuntimeException(" "));
+                .orElseThrow(() -> new RuntimeException(String.format(" Not find Address %d", id)));
 
 
     }

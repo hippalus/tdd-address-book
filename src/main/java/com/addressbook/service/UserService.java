@@ -20,13 +20,14 @@ import static org.springframework.transaction.annotation.Propagation.REQUIRED;
 import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
 @Service
+@Transactional
 public class UserService implements IService {
 
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private AddressService addressService;
-    @Autowired
+    @Autowired //fixme setter base injection; create bean
     private UserDTOMapper userDTOMapper=new UserDTOMapper(new BeanValidator(),new AddressDTOMapper(new BeanValidator(),new ZipCodeDTOMapper(new BeanValidator(),new CountryDTOMapper(new BeanValidator()))));
 
 

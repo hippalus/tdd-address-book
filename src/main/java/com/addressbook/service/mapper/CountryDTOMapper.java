@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CountryDTOMapper {
 
-    @Autowired
+
     private BeanValidator validator;
     @Autowired
     public CountryDTOMapper(BeanValidator beanValidator) {

@@ -28,6 +28,7 @@ public class Country {
     @NotNull@NotBlank
     private String dialCode;
 
+
     public static CountryBuilder aNew() {
         return new CountryBuilder();
     }
