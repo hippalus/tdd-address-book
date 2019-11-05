@@ -22,7 +22,7 @@ public class UserController {
     }
 
     @PostMapping("/api/v1/users")
-    public ResponseEntity<UserDTO> createProduct(@RequestBody UserDTO userDTO)
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO)
             throws URISyntaxException
     {
         log.debug("REST request to save User : {}", userDTO);
