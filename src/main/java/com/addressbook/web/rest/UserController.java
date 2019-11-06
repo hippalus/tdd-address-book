@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 public class UserController {
     private final Logger log = LoggerFactory.getLogger(UserController.class);
 
     private final UserService userService;
+
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
@@ -23,24 +25,25 @@ public class UserController {
 
     @PostMapping("/api/v1/users")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO)
-            throws URISyntaxException
-    {
+            throws URISyntaxException {
         log.debug("REST request to save User : {}", userDTO);
 
         UserDTO result = userService.save(userDTO);
 
         return ResponseEntity
-                .created(new URI("/api/v1/users/"+result.getId()))
+                .created(new URI("/api/v1/users/" + result.getId()))
                 .body(result);
     }
 
     @GetMapping("/api/v1/users/{id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable Integer id)
-    {
+    public ResponseEntity<UserDTO> getUser(@PathVariable Integer id) {
         return ResponseEntity.ok(userService.findById(id));
     }
 
-
+    @GetMapping("/api/v1/users/")
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        return ResponseEntity.ok(userService.findAll());
+    }
 
 
 }

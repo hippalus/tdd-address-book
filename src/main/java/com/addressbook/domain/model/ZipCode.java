@@ -12,26 +12,34 @@ import javax.validation.constraints.Positive;
 @Entity
 @Table(name = "tbl_zip_code")
 @AllArgsConstructor
-@Getter@Setter
-@EqualsAndHashCode@ToString
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 public class ZipCode {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Positive
     private Integer id;
-    @NotNull @NotBlank
-    private String postalCode;
-    @NotNull@NotBlank
-    private String province;
-    @NotNull@NotBlank
-    private String district;
-    @NotNull@NotBlank
-    private String street; //neighborhood or street
-    private String region;
     @NotNull
+    @NotBlank
+    private String postalCode;
+    @NotNull
+    @NotBlank
+    private String province;
+    @NotNull
+    @NotBlank
+    private String district;
+    @NotNull
+    @NotBlank
+    private String street; //neighborhood or street
+
+    private String region;
+
     @ManyToOne
     @JoinColumn(name = "country_id", referencedColumnName = "id")
+    @NotNull
     private Country country;
 
 

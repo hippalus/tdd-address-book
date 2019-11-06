@@ -8,14 +8,11 @@ import com.addressbook.service.dto.AddressDTO;
 import org.junit.jupiter.api.Test;
 import org.mockito.Spy;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddressDTOMapperTest extends BaseMockitoTest {
     @Spy
-    private AddressDTOMapper addressDTOMapper =new AddressDTOMapper(new BeanValidator(),new ZipCodeDTOMapper(new BeanValidator(),new CountryDTOMapper(new BeanValidator())));
+    private AddressDTOMapper addressDTOMapper=new AddressDTOMapper(new BeanValidator(),new ZipCodeDTOMapper(new BeanValidator(),new CountryDTOMapper(new BeanValidator())));
 
     @Spy
     private BeanValidator validator;

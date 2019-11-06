@@ -63,7 +63,7 @@ class AddressBuilderTest {
     @Test
     void should_build_a_address_with_zip_code() {
 
-        Country turkey = new Country(1, "Turkey", "TR", "90");
+        Country turkey = new Country(1, "Turkey", "TR", "90",new HashSet<>());
         ZipCode zipCode = new ZipCode(12, "3256", "Istanbul", "Pendik", "Yenisehir Neighborhood", "Marmara", turkey);
 
         Address address = Address.aNew().withZipCode(zipCode).get();

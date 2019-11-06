@@ -1,16 +1,17 @@
 package com.addressbook.service;
+
 import com.addressbook.domain.model.Address;
-import com.addressbook.domain.validation.BeanValidator;
 import com.addressbook.repository.AddressRepository;
 import com.addressbook.service.dto.AddressDTO;
 import com.addressbook.service.mapper.AddressDTOMapper;
-import com.addressbook.service.mapper.CountryDTOMapper;
-import com.addressbook.service.mapper.ZipCodeDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.transaction.annotation.Isolation.READ_UNCOMMITTED;
 import static org.springframework.transaction.annotation.Propagation.REQUIRED;
@@ -24,9 +25,8 @@ public class AddressService implements IService {
     private AddressRepository addressRepository;
     @Autowired
     private ZipCodeService zipCodeService;
-    @Autowired//fixme setter base injection
-    private AddressDTOMapper addressDTOMapper=new AddressDTOMapper(new BeanValidator(),new ZipCodeDTOMapper(new BeanValidator(),new CountryDTOMapper(new BeanValidator())));
-
+    @Autowired
+    private AddressDTOMapper addressDTOMapper;
 
     @Override
     public boolean checkIfExists(@NotNull Integer id) {
@@ -34,17 +34,18 @@ public class AddressService implements IService {
     }
 
     @Transactional(propagation = REQUIRED)
-    public AddressDTO save(AddressDTO addressDTO){
+    public AddressDTO save(AddressDTO addressDTO) {
 
-        if(!zipCodeService.checkIfExists(addressDTO.getZipCode().getId())){
+        if (!zipCodeService.checkIfExists(addressDTO.getZipCode().getId())) {
             //todo custom ex handler
             throw new RuntimeException(String.format(" Zip Code Exists %s", addressDTO.getZipCode().toString()));
         }
 
-        Address address=addressDTOMapper.toEntity(addressDTO);
+        Address address = addressDTOMapper.toEntity(addressDTO);
 
         return addressDTOMapper.toDto(addressRepository.save(address));
     }
+
     @Transactional(readOnly = true, propagation = SUPPORTS, isolation = READ_UNCOMMITTED)
     public AddressDTO findById(Integer id) {
         //todo custom ex handler
@@ -52,6 +53,16 @@ public class AddressService implements IService {
                 .map(addressDTOMapper::toDto)
                 .orElseThrow(() -> new RuntimeException(String.format(" Not find Address %d", id)));
 
+
+    }
+
+    @Transactional(readOnly = true, propagation = SUPPORTS, isolation = READ_UNCOMMITTED)
+    public List<AddressDTO> findAll() {
+
+        List<Address> allAddresses = addressRepository.findAll();
+        return allAddresses.stream()
+                .map(address -> (addressDTOMapper.toDto(address)))
+                .collect(Collectors.toList());
 
     }
 }

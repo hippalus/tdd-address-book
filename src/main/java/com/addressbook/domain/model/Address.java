@@ -14,25 +14,33 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Setter@Getter
+@Setter
+@Getter
 public class Address {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String title;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private AddressType addressType;
-    @NotNull@OneToOne(cascade = CascadeType.ALL)
+
+    @NotNull
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "zip_code_id", referencedColumnName = "id")
     private ZipCode zipCode;
-    @NotNull@NotBlank
+
+    @NotNull
+    @NotBlank
     private String addressDetail;
+
     private String otherDescription;
 
-    @ManyToMany(mappedBy = "addresses",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "addresses", targetEntity = User.class, fetch = FetchType.LAZY)
     private Set<User> users;
 
 

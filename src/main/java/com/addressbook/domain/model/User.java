@@ -24,28 +24,33 @@ public class User implements IUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Positive
     private Integer id;
+
     @NotBlank
     @NotNull
     private String firstName;
+
     @NotBlank
     @NotNull
     private String lastName;
+
     @NotBlank
     @NotNull
     @Email
     private String emailAddress;
+
     private LocalDate birthDate;
+
     @NotNull
     @NotBlank
     @Pattern(regexp = "(^$|[0-9]{10})")
-
     private String phoneNumber;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+
+    @NotNull
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_address",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id"))
-    @NotNull
     private Set<Address> addresses;
 
 

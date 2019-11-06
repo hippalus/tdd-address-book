@@ -12,14 +12,14 @@ import java.util.stream.Collectors;
 
 @Component
 public class AddressDTOMapper {
-
-    private  BeanValidator validator;
-    private  ZipCodeDTOMapper zipCodeDTOMapper;
-
     @Autowired
-    public AddressDTOMapper(BeanValidator validator,ZipCodeDTOMapper zipCodeDTOMapper) {
-        this.validator=validator;
-        this.zipCodeDTOMapper=zipCodeDTOMapper;
+    private BeanValidator validator;
+    @Autowired
+    private ZipCodeDTOMapper zipCodeDTOMapper;
+
+    public AddressDTOMapper(BeanValidator validator, ZipCodeDTOMapper zipCodeDTOMapper) {
+        this.validator = validator;
+        this.zipCodeDTOMapper = zipCodeDTOMapper;
     }
 
     public Address toEntity(AddressDTO addressDTO) {
@@ -49,7 +49,7 @@ public class AddressDTOMapper {
 
     public AddressDTO toDto(Address address) {
 
-        AddressDTO addressDTO=new AddressDTO();
+        AddressDTO addressDTO = new AddressDTO();
         addressDTO.setId(address.getId());
         addressDTO.setTitle(address.getTitle());
         addressDTO.setZipCode(zipCodeDTOMapper.toDto(address.getZipCode()));

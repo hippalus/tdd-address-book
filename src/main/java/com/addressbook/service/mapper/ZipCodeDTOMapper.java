@@ -8,18 +8,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ZipCodeDTOMapper {
-
+    @Autowired
     private BeanValidator validator;
 
+    @Autowired
     private CountryDTOMapper countryDTOMapper;
 
-    @Autowired
+
     public ZipCodeDTOMapper(BeanValidator validator, CountryDTOMapper countryDTOMapper) {
-        this.validator=validator;
-        this.countryDTOMapper=countryDTOMapper;
+        this.validator = validator;
+        this.countryDTOMapper = countryDTOMapper;
     }
 
-    public ZipCode toEntity(ZipCodeDTO zipCodeDTO){
+    public ZipCode toEntity(ZipCodeDTO zipCodeDTO) {
         return ZipCode.aNew()
                 .withId(zipCodeDTO.getId())
                 .withProvince(zipCodeDTO.getProvince())
@@ -32,7 +33,7 @@ public class ZipCodeDTOMapper {
     }
 
     public ZipCodeDTO toDto(ZipCode zipCode) {
-        ZipCodeDTO zipCodeDTO=new ZipCodeDTO();
+        ZipCodeDTO zipCodeDTO = new ZipCodeDTO();
         zipCodeDTO.setId(zipCode.getId());
         zipCodeDTO.setPostalCode(zipCode.getPostalCode());
         zipCodeDTO.setProvince(zipCode.getProvince());

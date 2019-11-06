@@ -2,13 +2,15 @@ package com.addressbook.domain.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ZipCodeTest {
 
     @Test
     void should_create_by_using_constructor_with_all_args() {
-        Country turkey = new Country(1,"Turkey", "TR", "90");
+        Country turkey = new Country(1,"Turkey", "TR", "90",new HashSet<>());
 
         ZipCode zipCode = new ZipCode(12, "3256", "Istanbul", "Pendik", "Yenisehir Neighborhood", "Marmara", turkey);
 

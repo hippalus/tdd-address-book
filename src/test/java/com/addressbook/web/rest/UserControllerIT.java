@@ -11,6 +11,7 @@ import com.addressbook.repository.UserRepository;
 import com.addressbook.repository.ZipCodeRepository;
 import com.addressbook.service.BeanUtils;
 import com.addressbook.service.UserService;
+import com.addressbook.service.dto.AddressDTO;
 import com.addressbook.service.dto.UserDTO;
 import com.addressbook.service.mapper.UserDTOMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,20 +27,18 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = AddressBookApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerIT {
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -78,17 +77,15 @@ public class UserControllerIT {
 
         UserDTO userDTO = userDTOMapper.toDto(user);
 
+
         ResultActions result = restMockMvc.perform(post("/api/v1/users")
                 .contentType(APPLICATION_JSON)
                 .content(TestUtil.convertObjectToJsonBytes(userDTO)));
+
+        userDTO.setId(1);
         //THEN
         result.andExpect(status().isCreated())
-                .andExpect(jsonPath("$.firstName")
-                        .value(equalTo(user.getFirstName())))
-                .andExpect(jsonPath("$.lastName")
-                        .value(equalTo(user.getLastName())))
-                .andExpect(jsonPath("$.addresses[0]")
-                        .value(equalTo(address.getId())));
+                .andExpect(content().json(TestUtil.convertObjectToJsonString(userDTO)));
     }
 
     @Test
@@ -122,7 +119,6 @@ public class UserControllerIT {
         ZipCode zipCode = BeanUtils.createRandomZipCodeAndSave(zipCodeRepository, country);
         Address address = BeanUtils.createRandomAddressAndSave(addressRepository, zipCode);
 
-       ;
         Set<Address> addressSet = new HashSet<>();
         addressSet.add(address);
         User user = BeanUtils.createRandomUser(address);
@@ -138,6 +134,32 @@ public class UserControllerIT {
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$.lastName")
                         .value(equalTo("Isler")));
+    }
+
+    @Test
+    @Transactional
+    public void should_find_all_users() throws Exception {
+        List<UserDTO> actualUserDTOS = new ArrayList<>();
+        //GIVEN
+        for (int i = 0; i < 5; i++) {
+            Country country = BeanUtils.createRandomCountryAndSave(countryRepository);
+            ZipCode zipCode = BeanUtils.createRandomZipCodeAndSave(zipCodeRepository, country);
+            Address address = BeanUtils.createRandomAddressAndSave(addressRepository, zipCode);
+
+            Set<Address> addressSet = new HashSet<>();
+            addressSet.add(address);
+            User user = BeanUtils.createRandomUser(address);
+            user.setAddresses(addressSet);
+            user.setId(null);
+            actualUserDTOS.add(userDTOMapper.toDto(userRepository.save(user)));
+        }
+
+        //WHEN
+        ResultActions result = restMockMvc.perform(get("/api/v1/users/"));
+
+        //THEN
+        result.andExpect(status().isOk())
+                .andExpect(content().json(TestUtil.convertObjectToJsonString(actualUserDTOS)));
     }
 
 }

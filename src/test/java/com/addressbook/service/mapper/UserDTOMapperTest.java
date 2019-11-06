@@ -1,7 +1,6 @@
 package com.addressbook.service.mapper;
 
 import com.addressbook.config.BaseMockitoTest;
-import com.addressbook.domain.model.Address;
 import com.addressbook.domain.model.User;
 import com.addressbook.domain.validation.BeanValidator;
 import com.addressbook.service.BeanUtils;

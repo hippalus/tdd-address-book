@@ -27,4 +27,6 @@ spring:
     enabled: true
   messages:
     basename: i18n/messages
+  main:
+    lazy-initialization: true
 

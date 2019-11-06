@@ -1,6 +1,9 @@
 package com.addressbook.domain.builder;
 
 import com.addressbook.domain.model.Country;
+import com.addressbook.domain.model.ZipCode;
+
+import java.util.Set;
 
 
 public class CountryBuilder implements IValidatableBuilder<Country> {
@@ -8,10 +11,12 @@ public class CountryBuilder implements IValidatableBuilder<Country> {
     private String name;
     private String code;
     private String dialCode;
+    private Set<ZipCode> zipCodes;
+
 
     @Override
     public Country get() {
-        return new Country(id, name, code, dialCode);
+        return new Country(id, name, code, dialCode,zipCodes);
     }
 
 
@@ -34,6 +39,10 @@ public class CountryBuilder implements IValidatableBuilder<Country> {
 
     public CountryBuilder withDialCode(String dialCode) {
         this.dialCode = dialCode;
+        return this;
+    }
+    public CountryBuilder withZipCodes(Set<ZipCode> zipCodes) {
+        this.zipCodes = zipCodes;
         return this;
     }
 }

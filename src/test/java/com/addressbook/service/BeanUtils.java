@@ -1,6 +1,5 @@
 package com.addressbook.service;
 
-import com.addressbook.domain.enums.AddressType;
 import com.addressbook.domain.model.Address;
 import com.addressbook.domain.model.Country;
 import com.addressbook.domain.model.User;
@@ -19,14 +18,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import static com.addressbook.domain.enums.AddressType.BUSINESS;
 import static com.addressbook.domain.enums.AddressType.HOME;
 
-public class BeanUtils {
-    private BeanUtils() {
-        //DO NOTING
-    }
 
+public class BeanUtils  {
+
+    private static BeanValidator validator=new BeanValidator();
 
     public static UserDTO createUserDTO(Integer id) {
         Set<AddressDTO> addressDTOSet = new HashSet<>();
@@ -40,29 +37,6 @@ public class BeanUtils {
         userDTO.setPhoneNumber("5435154878");
         userDTO.setAddresses(addressDTOSet);
         return userDTO;
-    }
-
-    public static AddressDTO createAddressDTO(Integer id) {
-        AddressDTO addressDto = new AddressDTO();
-        addressDto.setId(id);
-        addressDto.setAddressType(HOME);
-        addressDto.setAddressDetail("Brown Street");
-        addressDto.setOtherDescription("Go addressDetail ahead follow this rote there is on the left");
-        addressDto.setTitle("My Home Address");
-        addressDto.setZipCode(createZipCodeDTO(1));
-        addressDto.setAddressDetail("Brown Street");
-        return addressDto;
-    }
-
-    public static ZipCodeDTO createZipCodeDTO(Integer id) {
-        ZipCodeDTO zipCodeDTO = new ZipCodeDTO();
-        zipCodeDTO.setId(id);
-        zipCodeDTO.setCountry(createCountryDTO(id));
-        zipCodeDTO.setDistrict("Pendik");
-        zipCodeDTO.setProvince("Istanbul");
-        zipCodeDTO.setPostalCode("345100");
-        zipCodeDTO.setStreet("Camlik");
-        return zipCodeDTO;
     }
 
     public static CountryDTO createCountryDTO(Integer id) {
@@ -85,7 +59,7 @@ public class BeanUtils {
                 .withEmailAddress("habip@hisler.com")
                 .withPhoneNumber("5435154878")
                 .withAddress(addresses)
-                .get();
+                .validateAndGet(validator);
     }
 
     public static Address createAddressEntity(Integer id) {
@@ -96,8 +70,9 @@ public class BeanUtils {
                 .withTitle("My Home Address")
                 .withAddressDetail("Brown Street")
                 .withZipCode(createZipCodeEntity(id))
-                .get();
+                .validateAndGet(validator);
     }
+
     public static Address createAddressEntity(Integer id,ZipCode zipCode,String s) {
         return Address.aNew()
                 .withId(id)
@@ -106,9 +81,20 @@ public class BeanUtils {
                 .withTitle("zipCode")
                 .withAddressDetail("Brown Street")
                 .withZipCode(zipCode)
-                .get();
+                .validateAndGet(validator);
     }
 
+    public static AddressDTO createAddressDTO(Integer id) {
+        AddressDTO addressDto = new AddressDTO();
+        addressDto.setId(id);
+        addressDto.setAddressType(HOME);
+        addressDto.setAddressDetail("Brown Street");
+        addressDto.setOtherDescription("Go addressDetail ahead follow this rote there is on the left");
+        addressDto.setTitle("My Home Address");
+        addressDto.setZipCode(createZipCodeDTO(1));
+        addressDto.setAddressDetail("Brown Street");
+        return addressDto;
+    }
 
     public static ZipCode createZipCodeEntity(Integer id) {
         return ZipCode.aNew()
@@ -118,8 +104,9 @@ public class BeanUtils {
                 .withDistrict("Pendik")
                 .withStreet("Camlik")
                 .withCountry(createCountryEntity(id))
-                .get();
+                .validateAndGet(validator);
     }
+
     public static ZipCode createZipCodeEntity() {
         return ZipCode.aNew()
                 .withPostalCode("345100")
@@ -127,16 +114,15 @@ public class BeanUtils {
                 .withDistrict("Pendik")
                 .withStreet("Camlik")
                 .withCountry(createCountryEntity(null))
-                .get();
+                .validateAndGet(validator);
     }
-
     public static Country createCountryEntity(Integer id) {
         return Country.aNew()
                 .withId(id)
                 .withName("Turkey")
                 .withCode("TR")
                 .withDialCode("+90")
-                .get();
+                .validateAndGet(validator);
     }
 
     public static Address createRandomAddressAndSave(AddressRepository addressRepository,ZipCode zipCode) {
@@ -144,10 +130,8 @@ public class BeanUtils {
     }
 
     public static User createRandomUser(Address address) {
-
         return createRandomUser(null,"User IT"+UUID.randomUUID().toString(),address);
     }
-
     private static User createRandomUser(Integer id, String s, Address address) {
         HashSet<Address> addresses=new HashSet<>();
         addresses.add(address);
@@ -159,7 +143,7 @@ public class BeanUtils {
                 .withFirstName(s)
                 .withLastName("Isler")
                 .withBirthDate(LocalDate.of(1984,5,4))
-                .get();
+                .validateAndGet(validator);
 
     }
 
@@ -167,28 +151,39 @@ public class BeanUtils {
         return countryRepository.save(createRandomCountry(null,"Country Test"+UUID.randomUUID().toString()));
     }
 
-    private static Country createRandomCountry(Integer id, String name) {
+    public static Country createRandomCountry(Integer id, String name) {
         return Country.aNew()
                 .withId(id)
                 .withName(name)
                 .withCode("TR")
                 .withDialCode("90")
-                .get();
+                .validateAndGet(validator);
     }
 
-    public static ZipCode createRandomZipCodeAndSave(ZipCodeRepository zipCodeRepository, Country country) {
-        return zipCodeRepository.save(createRandomZipCode(null,country));
+
+    public static ZipCodeDTO createZipCodeDTO(Integer id) {
+        ZipCodeDTO zipCodeDTO = new ZipCodeDTO();
+        zipCodeDTO.setId(id);
+        zipCodeDTO.setCountry(createCountryDTO(id));
+        zipCodeDTO.setDistrict("Pendik");
+        zipCodeDTO.setProvince("Istanbul");
+        zipCodeDTO.setPostalCode("345100");
+        zipCodeDTO.setStreet("Camlik");
+        return zipCodeDTO;
     }
 
     private static ZipCode createRandomZipCode(Integer id, Country country) {
         return ZipCode.aNew()
-                .withId(id)
                 .withCountry(country)
                 .withStreet("Street Test")
                 .withRegion("Test region")
                 .withPostalCode("6548")
                 .withProvince("istanbul")
                 .withDistrict("pendik")
-                .get();
+                .validateAndGet(validator);
+    }
+
+    public static ZipCode createRandomZipCodeAndSave(ZipCodeRepository zipCodeRepository, Country country) {
+        return zipCodeRepository.save(createRandomZipCode(null,country));
     }
 }

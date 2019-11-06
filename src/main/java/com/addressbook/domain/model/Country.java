@@ -7,6 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tbl_country")
@@ -18,15 +20,24 @@ import javax.validation.constraints.Positive;
 public class Country {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Positive
     private Integer id;
-    @NotNull@NotBlank
+
+    @NotNull
+    @NotBlank
     private String name;
-    @NotNull@NotBlank
+
+    @NotNull
+    @NotBlank
     private String code;
-    @NotNull@NotBlank
+
+    @NotNull
+    @NotBlank
     private String dialCode;
+
+    @OneToMany(mappedBy = "country")
+    private Set<ZipCode> zipCodes;
 
 
     public static CountryBuilder aNew() {

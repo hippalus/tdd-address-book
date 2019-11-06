@@ -18,7 +18,7 @@ class AddressTest {
         addresses.add(new Address());
         Set<User> users=new HashSet<>();
         users.add(new User(10, "Jack", "Wilder", "jack@gmail.com", LocalDate.of(1994, 11, 2), "5062333444",addresses));
-        Country turkey = new Country(1,"Turkey", "TR", "90");
+        Country turkey = new Country(1,"Turkey", "TR", "90",new HashSet<>());
 
         Address address = new Address(1, "My Home Address", AddressType.HOME, new ZipCode(12, "3256", "Istanbul", "Pendik", "Yenisehir Neighborhood", "Marmara", turkey),"Brown Street","Go addressDetail ahead follow this rote there is on the left",users);
         assertThat(address.getId()).isEqualTo(1);

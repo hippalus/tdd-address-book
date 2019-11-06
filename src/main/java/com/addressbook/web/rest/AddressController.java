@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 public class AddressController {
@@ -21,22 +22,27 @@ public class AddressController {
     public AddressController(AddressService addressService) {
         this.addressService = addressService;
     }
+
     @PostMapping("/api/v1/addresses")
-    public ResponseEntity<AddressDTO> createAddress(@RequestBody AddressDTO addressDTO) throws URISyntaxException
-    {
+    public ResponseEntity<AddressDTO> createAddress(@RequestBody AddressDTO addressDTO)
+            throws URISyntaxException {
         log.debug("REST request to save Address : {}", addressDTO);
 
         AddressDTO result = addressService.save(addressDTO);
 
         return ResponseEntity
-                .created(new URI("/api/v1/addresses/"+result.getId()))
+                .created(new URI("/api/v1/addresses/" + result.getId()))
                 .body(result);
     }
 
     @GetMapping("/api/v1/addresses/{id}")
-    public ResponseEntity<AddressDTO> getAddress(@PathVariable Integer id)
-    {
+    public ResponseEntity<AddressDTO> getAddress(@PathVariable Integer id) {
         return ResponseEntity.ok(addressService.findById(id));
+    }
+
+    @GetMapping("/api/v1/addresses/")
+    public ResponseEntity<List<AddressDTO>> getAllAddress() {
+        return ResponseEntity.ok(addressService.findAll());
     }
 
 }

@@ -12,9 +12,11 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserDTOMapper {
-    private BeanValidator validator;
-    private AddressDTOMapper addressDTOMapper;
     @Autowired
+    private BeanValidator validator;
+    @Autowired
+    private AddressDTOMapper addressDTOMapper;
+
     public UserDTOMapper(BeanValidator validator,AddressDTOMapper addressDTOMapper) {
         this.validator=validator;
         this.addressDTOMapper=addressDTOMapper;
@@ -35,15 +37,15 @@ public class UserDTOMapper {
 
     public UserDTO toDto(User user) {
         UserDTO userDTO=new UserDTO();
-        userDTO.setAddresses(user.getAddresses().stream()
-                .map(address -> addressDTOMapper.toDto(address))
-                .collect(Collectors.toSet()));
         userDTO.setPhoneNumber(user.getPhoneNumber());
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
         userDTO.setEmailAddress(user.getEmailAddress());
         userDTO.setBirthDate(user.getBirthDate());
         userDTO.setId(user.getId());
+        userDTO.setAddresses(user.getAddresses().stream()
+                .map(address -> addressDTOMapper.toDto(address))
+                .collect(Collectors.toSet()));
         return userDTO;
     }
 
