@@ -22,7 +22,6 @@ public class User implements IUser {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Positive
     private Integer id;
 
     @NotBlank

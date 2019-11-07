@@ -20,7 +20,6 @@ public class ZipCode {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Positive
     private Integer id;
     @NotNull
     @NotBlank
@@ -37,7 +36,7 @@ public class ZipCode {
 
     private String region;
 
-    @ManyToOne
+    @ManyToOne(cascade ={CascadeType.REMOVE,CascadeType.REFRESH})
     @JoinColumn(name = "country_id", referencedColumnName = "id")
     @NotNull
     private Country country;
@@ -45,6 +44,7 @@ public class ZipCode {
 
     public static ZipCodeBuilder aNew() {
         return new ZipCodeBuilder();
+
     }
 
 }

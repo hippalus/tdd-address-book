@@ -12,6 +12,7 @@ import com.addressbook.service.dto.AddressDTO;
 import com.addressbook.service.dto.CountryDTO;
 import com.addressbook.service.dto.UserDTO;
 import com.addressbook.service.dto.ZipCodeDTO;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -20,10 +21,12 @@ import java.util.UUID;
 
 import static com.addressbook.domain.enums.AddressType.HOME;
 
-
+@Component
 public class BeanUtils  {
 
     private static BeanValidator validator=new BeanValidator();
+
+
 
     public static UserDTO createUserDTO(Integer id) {
         Set<AddressDTO> addressDTOSet = new HashSet<>();

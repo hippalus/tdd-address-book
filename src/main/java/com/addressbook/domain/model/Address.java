@@ -13,9 +13,7 @@ import java.util.Set;
 @Table(name = "tbl_address")
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@Setter
-@Getter
+@Data
 public class Address {
 
     @Id

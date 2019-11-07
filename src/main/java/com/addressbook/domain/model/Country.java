@@ -13,15 +13,11 @@ import java.util.Set;
 @Entity
 @Table(name = "tbl_country")
 @AllArgsConstructor
-@EqualsAndHashCode
-@Setter
-@Getter
-@ToString
+@Data
 public class Country {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Positive
     private Integer id;
 
     @NotNull
@@ -36,7 +32,7 @@ public class Country {
     @NotBlank
     private String dialCode;
 
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "country" )
     private Set<ZipCode> zipCodes;
 
 
