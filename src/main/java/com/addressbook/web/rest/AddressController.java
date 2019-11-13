@@ -23,7 +23,7 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @PostMapping("/api/v1/addresses")
+    @PostMapping("/addresses/")
     public ResponseEntity<AddressDTO> createAddress(@RequestBody AddressDTO addressDTO)
             throws URISyntaxException {
         log.debug("REST request to save Address : {}", addressDTO);
@@ -31,16 +31,16 @@ public class AddressController {
         AddressDTO result = addressService.save(addressDTO);
 
         return ResponseEntity
-                .created(new URI("/api/v1/addresses/" + result.getId()))
+                .created(new URI("/addresses/" + result.getId()))
                 .body(result);
     }
 
-    @GetMapping("/api/v1/addresses/{id}")
+    @GetMapping("/addresses/{id}")
     public ResponseEntity<AddressDTO> getAddress(@PathVariable Integer id) {
         return ResponseEntity.ok(addressService.findById(id));
     }
 
-    @GetMapping("/api/v1/addresses/")
+    @GetMapping("/addresses/")
     public ResponseEntity<List<AddressDTO>> getAllAddress() {
         return ResponseEntity.ok(addressService.findAll());
     }

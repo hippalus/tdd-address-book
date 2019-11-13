@@ -27,10 +27,10 @@ public class CountryDTOMapper {
 
     public CountryDTO toDto(Country country) {
         CountryDTO countryDTO = new CountryDTO();
-        country.setId(country.getId());
-        country.setCode(country.getCode());
-        country.setName(country.getName());
-        country.setDialCode(country.getDialCode());
+        countryDTO.setId(country.getId());
+        countryDTO.setCode(country.getCode());
+        countryDTO.setName(country.getName());
+        countryDTO.setDialCode(country.getDialCode());
         return countryDTO;
     }
 }

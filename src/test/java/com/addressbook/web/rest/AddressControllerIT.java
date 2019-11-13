@@ -53,16 +53,15 @@ public class AddressControllerIT {
     private MockMvc restMockMvc;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         MockitoAnnotations.initMocks(this);
         final AddressController addressController = new AddressController(addressService);
         this.restMockMvc = MockMvcBuilders.standaloneSetup(addressController).build();
-        // addressDTOMapper=new AddressDTOMapper(new BeanValidator(),new ZipCodeDTOMapper(new BeanValidator(),new CountryDTOMapper(new BeanValidator())));
     }
 
     @Test
     @Transactional
-    @Disabled//fixme Country bean is invalid:should be  refactor BeanUtils
+    // @Disabled//fixme Country bean is invalid:should be  refactor BeanUtils
     public void should_create_address() throws Exception {
         //GIVEN
 
@@ -73,7 +72,7 @@ public class AddressControllerIT {
 
         AddressDTO addressDTO = addressDTOMapper.toDto(address);
 
-        ResultActions result = restMockMvc.perform(post("/api/v1/addresses/")
+        ResultActions result = restMockMvc.perform(post("/addresses/")
                 .contentType(APPLICATION_JSON)
                 .content(TestUtil.convertObjectToJsonBytes(addressDTO)));
         //THEN
@@ -81,7 +80,7 @@ public class AddressControllerIT {
                 .andExpect(jsonPath("$.title")
                         .value(equalTo(address.getTitle())))
                 .andExpect(jsonPath("$.addressType")
-                        .value(equalTo(address.getAddressType())))
+                        .value(equalTo(address.getAddressType().toString())))
                 .andExpect(jsonPath("$.addressDetail")
                         .value(equalTo(address.getAddressDetail())));
     }
@@ -100,7 +99,7 @@ public class AddressControllerIT {
 
         //WHEN
         ResultActions result = restMockMvc.perform(
-                get("/api/v1/addresses/" +
+                get("/addresses/" +
                         address1.getId()));
 
         //THEN
@@ -122,7 +121,7 @@ public class AddressControllerIT {
         }
 
         //WHEN
-        ResultActions result = restMockMvc.perform(get("/api/v1/addresses/"));
+        ResultActions result = restMockMvc.perform(get("/addresses/"));
 
         //THEN
         result.andExpect(status().isOk())

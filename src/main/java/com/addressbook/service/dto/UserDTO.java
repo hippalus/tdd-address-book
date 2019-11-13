@@ -15,17 +15,29 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
+
     private Integer id;
+
     @NotBlank
     @NotNull
     private String firstName;
-    @NotBlank@NotNull
+
+    @NotBlank
+    @NotNull
     private String lastName;
-    @NotBlank@NotNull@Email
+
+    @NotBlank
+    @NotNull
+    @Email
     private String emailAddress;
+
     private LocalDate birthDate;
-    @NotNull@NotBlank@Pattern(regexp = "(^$|[0-9]{10})")
+
+    @NotNull
+    @NotBlank
+    @Pattern(regexp = "(^$|[0-9]{10})")
     private String phoneNumber;
+
     @NotNull
     private Set<AddressDTO> addresses;
 

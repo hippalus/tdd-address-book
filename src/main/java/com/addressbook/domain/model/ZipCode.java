@@ -7,15 +7,12 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name = "tbl_zip_code")
 @AllArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
+@NoArgsConstructor
+@Data
 public class ZipCode {
     @Id
     @Column(name = "id")
@@ -36,7 +33,7 @@ public class ZipCode {
 
     private String region;
 
-    @ManyToOne(cascade ={CascadeType.REMOVE,CascadeType.REFRESH})
+    @ManyToOne(cascade ={CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
     @JoinColumn(name = "country_id", referencedColumnName = "id")
     @NotNull
     private Country country;

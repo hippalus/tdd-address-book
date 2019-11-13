@@ -1,0 +1,192 @@
+{
+	"id": "49dfb8a1-5331-5391-f79d-a8163526a90e",
+	"name": "address-book-api",
+	"description": "",
+	"order": [
+		"04a45193-488a-b8fa-dded-2a03bb9e17a3",
+		"5512ca16-1bd9-0765-0c48-9a42bf658452",
+		"2bb8eb8e-e1bc-65e9-0faf-74ef1e2d0529",
+		"bbfa357b-d4b4-c49e-9d17-9772d2614e34",
+		"31505e4a-7fe0-f6ad-1f0a-a7ba8b16c30c",
+		"cc3243c4-ab50-995d-7a71-6536678aa2d7"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1573153454217,
+	"owner": "9411190",
+	"public": false,
+	"requests": [
+		{
+			"id": "04a45193-488a-b8fa-dded-2a03bb9e17a3",
+			"headers": "//Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": false
+				}
+			],
+			"url": "127.0.0.1:8080/api/v1/users/",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1573217388195,
+			"name": "get_all_users",
+			"description": "",
+			"collectionId": "49dfb8a1-5331-5391-f79d-a8163526a90e",
+			"responses": [],
+			"rawModeData": ""
+		},
+		{
+			"id": "2bb8eb8e-e1bc-65e9-0faf-74ef1e2d0529",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "127.0.0.1:8080/api/v1/users/",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": "",
+			"method": "POST",
+			"collectionId": "49dfb8a1-5331-5391-f79d-a8163526a90e",
+			"data": [],
+			"dataMode": "raw",
+			"name": "create_user",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1573195096189,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n  \"firstName\": \"User IT92f9b0f5-c6aa-4054-ae54-a97b33e54e63\",\n  \"lastName\": \"Isler\",\n  \"emailAddress\": \"test@test.com\",\n  \"birthDate\": [\n    1984,\n    5,\n    4\n  ],\n  \"phoneNumber\": \"5061589898\",\n  \"addresses\": [\n    {\n      \"id\": 1,\n      \"title\": \"zipCode\",\n      \"addressType\": \"HOME\",\n      \"zipCode\": {\n        \"id\": 1,\n        \"postalCode\": \"6548\",\n        \"province\": \"istanbul\",\n        \"district\": \"pendik\",\n        \"street\": \"Street Test\",\n        \"region\": \"Test region\",\n        \"country\": {\n          \"id\": 1,\n          \"name\": \"Country Test922fe688-dc88-4800-a01f-8b89335eb710\",\n          \"code\": \"TR\",\n          \"dialCode\": \"90\"\n        }\n      },\n      \"addressDetail\": \"Brown Street\",\n      \"otherDescription\": \"Go addressDetail ahead follow this rote there is on the left\"\n    }\n  ]\n}"
+		},
+		{
+			"id": "31505e4a-7fe0-f6ad-1f0a-a7ba8b16c30c",
+			"headers": "",
+			"headerData": [],
+			"url": "127.0.0.1:8080/api/v1/addresses/",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "49dfb8a1-5331-5391-f79d-a8163526a90e",
+			"data": null,
+			"dataMode": "params",
+			"name": "get_all_addresses",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1573195303449,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "5512ca16-1bd9-0765-0c48-9a42bf658452",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "127.0.0.1:8080/api/v1/users/5",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1573217403995,
+			"name": "get_user_byId",
+			"description": "\t\t\t",
+			"collectionId": "49dfb8a1-5331-5391-f79d-a8163526a90e",
+			"responses": [],
+			"rawModeData": ""
+		},
+		{
+			"id": "bbfa357b-d4b4-c49e-9d17-9772d2614e34",
+			"headers": "",
+			"headerData": [
+				{
+					"key": "",
+					"value": "",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "127.0.0.1:8080/api/v1/addresses/4",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1573217478265,
+			"name": "get_address_byId",
+			"description": "",
+			"collectionId": "49dfb8a1-5331-5391-f79d-a8163526a90e",
+			"responses": []
+		},
+		{
+			"id": "cc3243c4-ab50-995d-7a71-6536678aa2d7",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "127.0.0.1:8080/api/v1/addresses/",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "49dfb8a1-5331-5391-f79d-a8163526a90e",
+			"data": [],
+			"dataMode": "raw",
+			"name": "create_address",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1573217220651,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n    \"title\": \"my bussines address\",\n    \"addressType\": \"BUSINESS\",\n     \"zipCode\": {\n     \t\"id\":1,\n        \"postalCode\": \"6548\",\n        \"province\": \"istanbul\",\n        \"district\": \"pendik\",\n        \"street\": \"Street Test\",\n        \"region\": \"Test region\",\n        \"country\": {\n            \"id\": 1,\n            \"name\": \"Country Test922fe688-dc88-4800-a01f-8b89335eb710\",\n            \"code\": \"TR\",\n            \"dialCode\": \"90\"\n        }\n    },\n    \"addressDetail\": \"York evennu\",\n    \"otherDescription\": \"Go addressDetail ahead follow this rote there is on the left\"\n}"
+		}
+	]
+}

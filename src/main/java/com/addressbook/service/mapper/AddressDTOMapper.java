@@ -35,15 +35,16 @@ public class AddressDTOMapper {
 
     public Set<Address> toEntity(Set<AddressDTO> addressDTOSet) {
 
-        return addressDTOSet.stream().map(addressDTO -> Address.aNew()
+        return addressDTOSet.stream().map(addressDTO ->
+                Address.aNew()
                 .withId(addressDTO.getId())
                 .withAddressType(addressDTO.getAddressType())
                 .withAddressDetail(addressDTO.getAddressDetail())
                 .withZipCode(zipCodeDTOMapper.toEntity(addressDTO.getZipCode()))
                 .withTitle(addressDTO.getTitle())
                 .withOtherDescription(addressDTO.getOtherDescription())
-                .validateAndGet(validator)
-        ).collect(Collectors.toSet());
+                .validateAndGet(validator))
+                    .collect(Collectors.toSet());
 
     }
 

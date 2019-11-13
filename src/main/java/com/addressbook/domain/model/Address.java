@@ -28,7 +28,7 @@ public class Address {
     private AddressType addressType;
 
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade ={ CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "zip_code_id", referencedColumnName = "id")
     private ZipCode zipCode;
 
@@ -38,9 +38,8 @@ public class Address {
 
     private String otherDescription;
 
-    @ManyToMany(mappedBy = "addresses", targetEntity = User.class, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.REMOVE,CascadeType.REFRESH,CascadeType.MERGE},mappedBy = "addresses", targetEntity = User.class, fetch = FetchType.LAZY)
     private Set<User> users;
-
 
     public static AddressBuilder aNew() {
         return new AddressBuilder();

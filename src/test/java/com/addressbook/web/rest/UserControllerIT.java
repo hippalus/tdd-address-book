@@ -11,7 +11,6 @@ import com.addressbook.repository.UserRepository;
 import com.addressbook.repository.ZipCodeRepository;
 import com.addressbook.service.BeanUtils;
 import com.addressbook.service.UserService;
-import com.addressbook.service.dto.AddressDTO;
 import com.addressbook.service.dto.UserDTO;
 import com.addressbook.service.mapper.UserDTOMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -64,11 +63,8 @@ public class UserControllerIT {
 
     @Test
     @Transactional
-    @Disabled
     public void should_create_user() throws Exception {
         //GIVEN
-
-        //WHEN //fixme data generation :Country information ;
         Country country = BeanUtils.createRandomCountryAndSave(countryRepository);
         ZipCode zipCode = BeanUtils.createRandomZipCodeAndSave(zipCodeRepository, country);
         Address address = BeanUtils.createRandomAddressAndSave(addressRepository, zipCode);
@@ -77,12 +73,12 @@ public class UserControllerIT {
 
         UserDTO userDTO = userDTOMapper.toDto(user);
 
-
-        ResultActions result = restMockMvc.perform(post("/api/v1/users")
+        //WHEN
+        ResultActions result = restMockMvc.perform(post("/users/")
                 .contentType(APPLICATION_JSON)
                 .content(TestUtil.convertObjectToJsonBytes(userDTO)));
 
-        userDTO.setId(1);
+
         //THEN
         result.andExpect(status().isCreated())
                 .andExpect(content().json(TestUtil.convertObjectToJsonString(userDTO)));
@@ -104,7 +100,7 @@ public class UserControllerIT {
         user.setId(new Random().nextInt());
 
         //WHEN
-        ResultActions result = restMockMvc.perform(get("/api/v1/users/" + user.getId()));
+        ResultActions result =   restMockMvc.perform(get("/users/" + user.getId()));
 
         //THEN
         //todo refactor to find by id method in user service :custom exception handler notfound : should be change Runtime Exception
@@ -128,7 +124,7 @@ public class UserControllerIT {
         user = userRepository.save(user);
 
         //WHEN
-        ResultActions result = restMockMvc.perform(get("/api/v1/users/" + user.getId()));
+        ResultActions result = restMockMvc.perform(get("/users/" + user.getId()));
 
         //THEN
         result.andExpect(status().isOk())
@@ -155,7 +151,7 @@ public class UserControllerIT {
         }
 
         //WHEN
-        ResultActions result = restMockMvc.perform(get("/api/v1/users/"));
+        ResultActions result = restMockMvc.perform(get("/users/"));
 
         //THEN
         result.andExpect(status().isOk())

@@ -3,6 +3,7 @@ package com.addressbook.service;
 import com.addressbook.domain.model.Address;
 import com.addressbook.repository.AddressRepository;
 import com.addressbook.service.dto.AddressDTO;
+import com.addressbook.service.dto.ZipCodeDTO;
 import com.addressbook.service.mapper.AddressDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,8 @@ public class AddressService implements IService {
 
         if (!zipCodeService.checkIfExists(addressDTO.getZipCode().getId())) {
             //todo custom ex handler
-            throw new RuntimeException(String.format(" Zip Code Exists %s", addressDTO.getZipCode().toString()));
+            ZipCodeDTO zipCodeDTO=zipCodeService.save(addressDTO.getZipCode());
+            addressDTO.setZipCode(zipCodeDTO);
         }
 
         Address address = addressDTOMapper.toEntity(addressDTO);

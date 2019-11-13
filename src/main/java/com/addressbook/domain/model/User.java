@@ -1,9 +1,7 @@
 package com.addressbook.domain.model;
 
 import com.addressbook.domain.builder.UserBuilder;
-
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
@@ -14,9 +12,8 @@ import java.util.Set;
 @Table(name = "tbl_user")
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(exclude = "addresses")
 public class User implements IUser {
 
     @Id
@@ -45,7 +42,7 @@ public class User implements IUser {
     private String phoneNumber;
 
     @NotNull
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_address",
             joinColumns = @JoinColumn(name = "user_id"),

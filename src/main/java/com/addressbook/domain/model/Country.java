@@ -6,15 +6,15 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "tbl_country")
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class Country {
+@EqualsAndHashCode(exclude = "zipCodes")
+public class  Country {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -31,8 +31,7 @@ public class Country {
     @NotNull
     @NotBlank
     private String dialCode;
-
-    @OneToMany(mappedBy = "country" )
+    @OneToMany(mappedBy = "country" ,cascade = { CascadeType.MERGE,CascadeType.REFRESH })
     private Set<ZipCode> zipCodes;
 
 

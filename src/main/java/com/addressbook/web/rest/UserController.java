@@ -6,13 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-@RestController
+@Controller
 public class UserController {
     private final Logger log = LoggerFactory.getLogger(UserController.class);
 
@@ -23,7 +24,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/api/v1/users")
+    @PostMapping("/users/")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO)
             throws URISyntaxException {
         log.debug("REST request to save User : {}", userDTO);
@@ -31,16 +32,16 @@ public class UserController {
         UserDTO result = userService.save(userDTO);
 
         return ResponseEntity
-                .created(new URI("/api/v1/users/" + result.getId()))
+                .created(new URI("/users/" + result.getId()))
                 .body(result);
     }
 
-    @GetMapping("/api/v1/users/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Integer id) {
         return ResponseEntity.ok(userService.findById(id));
     }
 
-    @GetMapping("/api/v1/users/")
+    @GetMapping("/users/")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.findAll());
     }

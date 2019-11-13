@@ -44,7 +44,8 @@ public class UserDTOMapper {
         userDTO.setBirthDate(user.getBirthDate());
         userDTO.setId(user.getId());
         userDTO.setAddresses(user.getAddresses().stream()
-                .map(address -> addressDTOMapper.toDto(address))
+                .map(address ->
+                        addressDTOMapper.toDto(address))
                 .collect(Collectors.toSet()));
         return userDTO;
     }

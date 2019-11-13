@@ -39,7 +39,7 @@ public class UserService implements IService {
     @Transactional(propagation = REQUIRED)
     public UserDTO save(UserDTO userDto) {
 
-        userDto.getAddresses().stream()
+        userDto.getAddresses().parallelStream()
                 .filter(addr -> !addressService.checkIfExists(addr.getId()))
                 .forEach(addressDTO -> addressService.save(addressDTO));
 

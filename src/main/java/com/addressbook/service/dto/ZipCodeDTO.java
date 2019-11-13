@@ -12,13 +12,17 @@ public class ZipCodeDTO {
 
     @Positive
     private Integer id;
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String postalCode;
-    @NotNull@NotBlank
+    @NotNull
+    @NotBlank
     private String province;
-    @NotNull@NotBlank
+    @NotNull
+    @NotBlank
     private String district;
-    @NotNull@NotBlank
+    @NotNull
+    @NotBlank
     private String street; //neighborhood or street
     private String region;
     @NotNull
