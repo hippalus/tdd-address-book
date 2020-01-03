@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +19,7 @@ import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
 @Service
 @Transactional
-public class AddressService implements IService {
+public class AddressService implements IAddressService {
 
     @Autowired
     private AddressRepository addressRepository;
@@ -34,12 +33,13 @@ public class AddressService implements IService {
         return addressRepository.existsById(id);
     }
 
+    @Override
     @Transactional(propagation = REQUIRED)
     public AddressDTO save(AddressDTO addressDTO) {
 
         if (!zipCodeService.checkIfExists(addressDTO.getZipCode().getId())) {
             //todo custom ex handler
-            ZipCodeDTO zipCodeDTO=zipCodeService.save(addressDTO.getZipCode());
+            ZipCodeDTO zipCodeDTO = zipCodeService.save(addressDTO.getZipCode());
             addressDTO.setZipCode(zipCodeDTO);
         }
 
@@ -48,6 +48,7 @@ public class AddressService implements IService {
         return addressDTOMapper.toDto(addressRepository.save(address));
     }
 
+    @Override
     @Transactional(readOnly = true, propagation = SUPPORTS, isolation = READ_UNCOMMITTED)
     public AddressDTO findById(Integer id) {
         //todo custom ex handler
@@ -58,6 +59,7 @@ public class AddressService implements IService {
 
     }
 
+    @Override
     @Transactional(readOnly = true, propagation = SUPPORTS, isolation = READ_UNCOMMITTED)
     public List<AddressDTO> findAll() {
 

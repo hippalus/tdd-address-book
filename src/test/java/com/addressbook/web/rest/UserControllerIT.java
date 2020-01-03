@@ -10,7 +10,7 @@ import com.addressbook.repository.CountryRepository;
 import com.addressbook.repository.UserRepository;
 import com.addressbook.repository.ZipCodeRepository;
 import com.addressbook.service.BeanUtils;
-import com.addressbook.service.UserService;
+import com.addressbook.service.IUserService;
 import com.addressbook.service.dto.UserDTO;
 import com.addressbook.service.mapper.UserDTOMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserControllerIT {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
     @Autowired
     private CountryRepository countryRepository;
     @Autowired
@@ -100,7 +100,7 @@ public class UserControllerIT {
         user.setId(new Random().nextInt());
 
         //WHEN
-        ResultActions result =   restMockMvc.perform(get("/users/" + user.getId()));
+        ResultActions result = restMockMvc.perform(get("/users/" + user.getId()));
 
         //THEN
         //todo refactor to find by id method in user service :custom exception handler notfound : should be change Runtime Exception

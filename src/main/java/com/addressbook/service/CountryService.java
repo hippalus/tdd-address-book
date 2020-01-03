@@ -26,9 +26,9 @@ public class CountryService implements IService {
         return countryRepository.existsById(id);
     }
 
-    @Transactional(propagation =REQUIRED)
-    public CountryDTO save(CountryDTO countryDTO){
-        Country country=countryRepository.save(countryDTOMapper.toEntity(countryDTO));
+    @Transactional(propagation = REQUIRED)
+    public CountryDTO save(CountryDTO countryDTO) {
+        Country country = countryRepository.save(countryDTOMapper.toEntity(countryDTO));
 
         return countryDTOMapper.toDto(country);
     }

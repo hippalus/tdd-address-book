@@ -33,7 +33,7 @@ public class ZipCodeService implements IService {
     public ZipCodeDTO save(ZipCodeDTO zipCodeDTO) {
 
         if (!countryService.checkIfExists(zipCodeDTO.getCountry().getId())) {
-            CountryDTO countryDTO=countryService.save(zipCodeDTO.getCountry());
+            CountryDTO countryDTO = countryService.save(zipCodeDTO.getCountry());
             zipCodeDTO.setCountry(countryDTO);
 
         }

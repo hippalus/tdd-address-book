@@ -1,9 +1,16 @@
 package com.addressbook.domain.model;
 
 import com.addressbook.domain.builder.UserBuilder;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -49,14 +56,12 @@ public class User implements IUser {
             inverseJoinColumns = @JoinColumn(name = "address_id"))
     private Set<Address> addresses;
 
+    public static UserBuilder aNew() {
+        return new UserBuilder();
+    }
 
     @Override
     public String getFullName() {
         return String.format("%s %s", firstName, lastName);
-    }
-
-
-    public static UserBuilder aNew() {
-        return new UserBuilder();
     }
 }

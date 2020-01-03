@@ -22,10 +22,9 @@ import java.util.UUID;
 import static com.addressbook.domain.enums.AddressType.HOME;
 
 @Component
-public class BeanUtils  {
+public class BeanUtils {
 
-    private static BeanValidator validator=new BeanValidator();
-
+    private static BeanValidator validator = new BeanValidator();
 
 
     public static UserDTO createUserDTO(Integer id) {
@@ -76,7 +75,7 @@ public class BeanUtils  {
                 .validateAndGet(validator);
     }
 
-    public static Address createAddressEntity(Integer id,ZipCode zipCode,String s) {
+    public static Address createAddressEntity(Integer id, ZipCode zipCode, String s) {
         return Address.aNew()
                 .withId(id)
                 .withOtherDescription("Go addressDetail ahead follow this rote there is on the left")
@@ -119,6 +118,7 @@ public class BeanUtils  {
                 .withCountry(createCountryEntity(null))
                 .validateAndGet(validator);
     }
+
     public static Country createCountryEntity(Integer id) {
         return Country.aNew()
                 .withId(id)
@@ -128,15 +128,16 @@ public class BeanUtils  {
                 .validateAndGet(validator);
     }
 
-    public static Address createRandomAddressAndSave(AddressRepository addressRepository,ZipCode zipCode) {
-        return addressRepository.save((createAddressEntity(null,zipCode,"Address IT"+UUID.randomUUID().toString())));
+    public static Address createRandomAddressAndSave(AddressRepository addressRepository, ZipCode zipCode) {
+        return addressRepository.save((createAddressEntity(null, zipCode, "Address IT" + UUID.randomUUID().toString())));
     }
 
     public static User createRandomUser(Address address) {
-        return createRandomUser(null,"User IT"+UUID.randomUUID().toString(),address);
+        return createRandomUser(null, "User IT" + UUID.randomUUID().toString(), address);
     }
+
     private static User createRandomUser(Integer id, String s, Address address) {
-        HashSet<Address> addresses=new HashSet<>();
+        HashSet<Address> addresses = new HashSet<>();
         addresses.add(address);
         return User.aNew()
                 .withId(id)
@@ -145,13 +146,13 @@ public class BeanUtils  {
                 .withEmailAddress("test@test.com")
                 .withFirstName(s)
                 .withLastName("Isler")
-                .withBirthDate(LocalDate.of(1984,5,4))
+                .withBirthDate(LocalDate.of(1984, 5, 4))
                 .validateAndGet(validator);
 
     }
 
     public static Country createRandomCountryAndSave(CountryRepository countryRepository) {
-        return countryRepository.save(createRandomCountry(null,"Country Test"+UUID.randomUUID().toString()));
+        return countryRepository.save(createRandomCountry(null, "Country Test" + UUID.randomUUID().toString()));
     }
 
     public static Country createRandomCountry(Integer id, String name) {
@@ -187,6 +188,6 @@ public class BeanUtils  {
     }
 
     public static ZipCode createRandomZipCodeAndSave(ZipCodeRepository zipCodeRepository, Country country) {
-        return zipCodeRepository.save(createRandomZipCode(null,country));
+        return zipCodeRepository.save(createRandomZipCode(null, country));
     }
 }

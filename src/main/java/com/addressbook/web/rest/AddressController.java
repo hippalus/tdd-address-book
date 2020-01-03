@@ -1,6 +1,6 @@
 package com.addressbook.web.rest;
 
-import com.addressbook.service.AddressService;
+import com.addressbook.service.IAddressService;
 import com.addressbook.service.dto.AddressDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +16,10 @@ import java.util.List;
 public class AddressController {
     private final Logger log = LoggerFactory.getLogger(AddressController.class);
 
-    private final AddressService addressService;
+    private final IAddressService addressService;
 
     @Autowired
-    public AddressController(AddressService addressService) {
+    public AddressController(IAddressService addressService) {
         this.addressService = addressService;
     }
 

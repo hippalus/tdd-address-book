@@ -2,7 +2,9 @@ package com.addressbook.domain.model;
 
 
 import com.addressbook.domain.builder.ZipCodeBuilder;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -33,7 +35,7 @@ public class ZipCode {
 
     private String region;
 
-    @ManyToOne(cascade ={CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "country_id", referencedColumnName = "id")
     @NotNull
     private Country country;

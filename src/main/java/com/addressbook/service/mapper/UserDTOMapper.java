@@ -17,9 +17,9 @@ public class UserDTOMapper {
     @Autowired
     private AddressDTOMapper addressDTOMapper;
 
-    public UserDTOMapper(BeanValidator validator,AddressDTOMapper addressDTOMapper) {
-        this.validator=validator;
-        this.addressDTOMapper=addressDTOMapper;
+    public UserDTOMapper(BeanValidator validator, AddressDTOMapper addressDTOMapper) {
+        this.validator = validator;
+        this.addressDTOMapper = addressDTOMapper;
     }
 
     public User toEntity(UserDTO userDTO) {
@@ -36,7 +36,7 @@ public class UserDTOMapper {
     }
 
     public UserDTO toDto(User user) {
-        UserDTO userDTO=new UserDTO();
+        UserDTO userDTO = new UserDTO();
         userDTO.setPhoneNumber(user.getPhoneNumber());
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());

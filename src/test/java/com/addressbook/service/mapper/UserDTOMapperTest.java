@@ -8,15 +8,12 @@ import com.addressbook.service.dto.UserDTO;
 import org.junit.jupiter.api.Test;
 import org.mockito.Spy;
 
-
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UserDTOMapperTest extends BaseMockitoTest {
     @Spy
-    private UserDTOMapper userDTOMapper =new UserDTOMapper(new BeanValidator(),new AddressDTOMapper(new BeanValidator(),new ZipCodeDTOMapper(new BeanValidator(),new CountryDTOMapper(new BeanValidator()))));
+    private UserDTOMapper userDTOMapper = new UserDTOMapper(new BeanValidator(), new AddressDTOMapper(new BeanValidator(), new ZipCodeDTOMapper(new BeanValidator(), new CountryDTOMapper(new BeanValidator()))));
 
     @Spy
     private BeanValidator validator;
@@ -30,11 +27,11 @@ class UserDTOMapperTest extends BaseMockitoTest {
         User user = userDTOMapper.toEntity(userDTO);
 
         assertEquals(user.getId(), userDTO.getId());
-        assertEquals(user.getId(),userDTO.getId());
-        assertEquals(user.getAddresses().size(),userDTO.getAddresses().size());
-        assertEquals(user.getBirthDate(),userDTO.getBirthDate());
-        assertEquals(user.getFirstName(),userDTO.getFirstName());
-        assertEquals(user.getPhoneNumber(),userDTO.getPhoneNumber());
+        assertEquals(user.getId(), userDTO.getId());
+        assertEquals(user.getAddresses().size(), userDTO.getAddresses().size());
+        assertEquals(user.getBirthDate(), userDTO.getBirthDate());
+        assertEquals(user.getFirstName(), userDTO.getFirstName());
+        assertEquals(user.getPhoneNumber(), userDTO.getPhoneNumber());
 
     }
 
@@ -45,21 +42,21 @@ class UserDTOMapperTest extends BaseMockitoTest {
 
         UserDTO userDTO = userDTOMapper.toDto(user);
 
-        assertEquals(userDTO.getId(),user.getId());
-        assertEquals(userDTO.getAddresses().size(),user.getAddresses().size());
-        assertEquals(userDTO.getBirthDate(),user.getBirthDate());
-        assertEquals(userDTO.getFirstName(),user.getFirstName());
-        assertEquals(userDTO.getPhoneNumber(),user.getPhoneNumber());
+        assertEquals(userDTO.getId(), user.getId());
+        assertEquals(userDTO.getAddresses().size(), user.getAddresses().size());
+        assertEquals(userDTO.getBirthDate(), user.getBirthDate());
+        assertEquals(userDTO.getFirstName(), user.getFirstName());
+        assertEquals(userDTO.getPhoneNumber(), user.getPhoneNumber());
 
     }
+
     @Test
-     void should_not_validate_user()
-    {
-        UserDTO dto =BeanUtils.createUserDTO(85);
+    void should_not_validate_user() {
+        UserDTO dto = BeanUtils.createUserDTO(85);
         dto.setEmailAddress("invalid");
         dto.setAddresses(null);
 
-        assertThrows(NullPointerException.class,()->userDTOMapper.toEntity(dto));
-      
+        assertThrows(NullPointerException.class, () -> userDTOMapper.toEntity(dto));
+
     }
 }

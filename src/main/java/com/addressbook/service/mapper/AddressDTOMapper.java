@@ -3,7 +3,6 @@ package com.addressbook.service.mapper;
 import com.addressbook.domain.model.Address;
 import com.addressbook.domain.validation.BeanValidator;
 import com.addressbook.service.dto.AddressDTO;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,14 +36,14 @@ public class AddressDTOMapper {
 
         return addressDTOSet.stream().map(addressDTO ->
                 Address.aNew()
-                .withId(addressDTO.getId())
-                .withAddressType(addressDTO.getAddressType())
-                .withAddressDetail(addressDTO.getAddressDetail())
-                .withZipCode(zipCodeDTOMapper.toEntity(addressDTO.getZipCode()))
-                .withTitle(addressDTO.getTitle())
-                .withOtherDescription(addressDTO.getOtherDescription())
-                .validateAndGet(validator))
-                    .collect(Collectors.toSet());
+                        .withId(addressDTO.getId())
+                        .withAddressType(addressDTO.getAddressType())
+                        .withAddressDetail(addressDTO.getAddressDetail())
+                        .withZipCode(zipCodeDTOMapper.toEntity(addressDTO.getZipCode()))
+                        .withTitle(addressDTO.getTitle())
+                        .withOtherDescription(addressDTO.getOtherDescription())
+                        .validateAndGet(validator))
+                .collect(Collectors.toSet());
 
     }
 

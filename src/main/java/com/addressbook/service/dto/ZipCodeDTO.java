@@ -7,7 +7,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-@Setter@Getter
+@Setter
+@Getter
 public class ZipCodeDTO {
 
     @Positive

@@ -7,13 +7,11 @@ import com.addressbook.domain.model.ZipCode;
 import com.addressbook.repository.AddressRepository;
 import com.addressbook.repository.CountryRepository;
 import com.addressbook.repository.ZipCodeRepository;
-import com.addressbook.service.AddressService;
 import com.addressbook.service.BeanUtils;
-import com.addressbook.service.CountryService;
+import com.addressbook.service.IAddressService;
 import com.addressbook.service.dto.AddressDTO;
 import com.addressbook.service.mapper.AddressDTOMapper;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockitoAnnotations;
@@ -27,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -38,8 +37,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AddressControllerIT {
 
     @Autowired
-    private CountryService countryService;
-    @Autowired
     private CountryRepository countryRepository;
     @Autowired
     private AddressDTOMapper addressDTOMapper;
@@ -48,7 +45,7 @@ public class AddressControllerIT {
     @Autowired
     private ZipCodeRepository zipCodeRepository;
     @Autowired
-    private AddressService addressService;
+    private IAddressService addressService;
 
     private MockMvc restMockMvc;
 

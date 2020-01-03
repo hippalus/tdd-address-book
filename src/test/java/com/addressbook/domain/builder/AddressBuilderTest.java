@@ -1,12 +1,10 @@
 package com.addressbook.domain.builder;
 
-import com.addressbook.domain.enums.AddressType;
 import com.addressbook.domain.exceptions.BeanValidationException;
 import com.addressbook.domain.model.Address;
 import com.addressbook.domain.model.Country;
 import com.addressbook.domain.model.User;
 import com.addressbook.domain.model.ZipCode;
-
 import com.addressbook.domain.validation.BeanValidator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,13 +23,12 @@ class AddressBuilderTest {
     private BeanValidator validator;
 
     @BeforeEach
-     void init()
-    {
+    void init() {
         validator = new BeanValidator();
     }
 
     @AfterEach
-     void terminate() {
+    void terminate() {
         validator.close();
     }
 
@@ -63,7 +60,7 @@ class AddressBuilderTest {
     @Test
     void should_build_a_address_with_zip_code() {
 
-        Country turkey = new Country(1, "Turkey", "TR", "90",new HashSet<>());
+        Country turkey = new Country(1, "Turkey", "TR", "90", new HashSet<>());
         ZipCode zipCode = new ZipCode(12, "3256", "Istanbul", "Pendik", "Yenisehir Neighborhood", "Marmara", turkey);
 
         Address address = Address.aNew().withZipCode(zipCode).get();
@@ -107,23 +104,25 @@ class AddressBuilderTest {
     }
 
     @Test
-    void should_throw_BeanValidationException_when_address_type_is_null(){
-        assertThrows(BeanValidationException.class,() -> Address.aNew()
+    void should_throw_BeanValidationException_when_address_type_is_null() {
+        assertThrows(BeanValidationException.class, () -> Address.aNew()
                 .withOtherDescription("There is next to a lady")
                 .validateAndGet(validator));
     }
+
     @Test
-    void should_throw_BeanValidationException_when_zip_code_is_null(){
-        assertThrows(BeanValidationException.class,() -> Address.aNew()
+    void should_throw_BeanValidationException_when_zip_code_is_null() {
+        assertThrows(BeanValidationException.class, () -> Address.aNew()
                 .withOtherDescription("There is next to a lady")
                 .withAddressType(BUSINESS)
                 .withTitle("Amazon")
                 .withZipCode(null)
                 .validateAndGet(validator));
     }
+
     @Test
-    void should_throw_BeanValidationException_when_address_detail_is_blank(){
-        assertThrows(BeanValidationException.class,() -> Address.aNew()
+    void should_throw_BeanValidationException_when_address_detail_is_blank() {
+        assertThrows(BeanValidationException.class, () -> Address.aNew()
                 .withOtherDescription("There is next to a lady")
                 .withAddressType(BUSINESS)
                 .withTitle("Amazon")
@@ -143,9 +142,10 @@ class AddressBuilderTest {
                         .validateAndGet(validator))
                 .validateAndGet(validator));
     }
+
     @Test
-    void should_throw_BeanValidationException_when_address_detail_is_null(){
-        assertThrows(BeanValidationException.class,() -> Address.aNew()
+    void should_throw_BeanValidationException_when_address_detail_is_null() {
+        assertThrows(BeanValidationException.class, () -> Address.aNew()
                 .withOtherDescription("There is next to a lady")
                 .withAddressType(BUSINESS)
                 .withTitle("Amazon")

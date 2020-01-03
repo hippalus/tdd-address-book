@@ -15,8 +15,7 @@ class ZipCodeBuilderTest {
     private BeanValidator validator;
 
     @BeforeEach
-    void init()
-    {
+    void init() {
         validator = new BeanValidator();
     }
 
@@ -58,21 +57,21 @@ class ZipCodeBuilderTest {
     @Test
     void should_throw_BeanValidationException_if_no_postal_code_specified() {
 
-      assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
-              .withId(33)
-              .withPostalCode("")
-              .withProvince("Istanbul")
-              .withDistrict("Pendik")
-              .withStreet("Yenisehir")
-              .withCountry(Country.aNew()
-                      .withId(2)
-                      .withName("Turkey")
-                      .withCode("TR")
-                      .withDialCode("+90")
-                      .validateAndGet(validator))
-              .validateAndGet(validator));
+        assertThrows(BeanValidationException.class, () -> ZipCode.aNew()
+                .withId(33)
+                .withPostalCode("")
+                .withProvince("Istanbul")
+                .withDistrict("Pendik")
+                .withStreet("Yenisehir")
+                .withCountry(Country.aNew()
+                        .withId(2)
+                        .withName("Turkey")
+                        .withCode("TR")
+                        .withDialCode("+90")
+                        .validateAndGet(validator))
+                .validateAndGet(validator));
 
-        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+        assertThrows(BeanValidationException.class, () -> ZipCode.aNew()
                 .withId(33)
                 .withPostalCode(null)
                 .withProvince("Istanbul")
@@ -90,7 +89,7 @@ class ZipCodeBuilderTest {
     @Test
     void should_throw_BeanValidationException_if_no_province_specified() {
 
-        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+        assertThrows(BeanValidationException.class, () -> ZipCode.aNew()
                 .withId(33)
                 .withPostalCode("65465")
                 .withProvince("")
@@ -104,7 +103,7 @@ class ZipCodeBuilderTest {
                         .validateAndGet(validator))
                 .validateAndGet(validator));
 
-        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+        assertThrows(BeanValidationException.class, () -> ZipCode.aNew()
                 .withId(33)
                 .withPostalCode("54564")
                 .withProvince(null)
@@ -122,7 +121,7 @@ class ZipCodeBuilderTest {
     @Test
     void should_throw_BeanValidationException_if_no_district_specified() {
 
-        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+        assertThrows(BeanValidationException.class, () -> ZipCode.aNew()
                 .withId(33)
                 .withPostalCode("545546")
                 .withProvince("Istanbul")
@@ -136,7 +135,7 @@ class ZipCodeBuilderTest {
                         .validateAndGet(validator))
                 .validateAndGet(validator));
 
-        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+        assertThrows(BeanValidationException.class, () -> ZipCode.aNew()
                 .withId(33)
                 .withPostalCode("4224")
                 .withProvince("Istanbul")
@@ -154,7 +153,7 @@ class ZipCodeBuilderTest {
     @Test
     void should_throw_BeanValidationException_if_no_street_specified() {
 
-        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+        assertThrows(BeanValidationException.class, () -> ZipCode.aNew()
                 .withId(33)
                 .withPostalCode("5465")
                 .withProvince("Istanbul")
@@ -168,7 +167,7 @@ class ZipCodeBuilderTest {
                         .validateAndGet(validator))
                 .validateAndGet(validator));
 
-        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+        assertThrows(BeanValidationException.class, () -> ZipCode.aNew()
                 .withId(33)
                 .withPostalCode("5465")
                 .withProvince("Istanbul")
@@ -187,7 +186,7 @@ class ZipCodeBuilderTest {
     @Test
     void should_throw_BeanValidationException_if_no_country_specified() {
 
-        assertThrows(BeanValidationException.class, () ->ZipCode.aNew()
+        assertThrows(BeanValidationException.class, () -> ZipCode.aNew()
                 .withId(33)
                 .withPostalCode("5465")
                 .withProvince("Istanbul")

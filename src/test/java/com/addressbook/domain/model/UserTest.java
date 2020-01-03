@@ -16,7 +16,7 @@ class UserTest {
         Set<Address> addresses = new HashSet<>();
         addresses.add(new Address());
 
-        User user = new User(10, "Jack", "Wilder", "jack@gmail.com", LocalDate.of(1994, 11, 2), "5062333444",addresses);
+        User user = new User(10, "Jack", "Wilder", "jack@gmail.com", LocalDate.of(1994, 11, 2), "5062333444", addresses);
         assertThat(user.getId()).isEqualTo(10);
         assertThat(user.getFirstName()).isEqualTo("Jack");
         assertThat(user.getLastName()).isEqualTo("Wilder");

@@ -16,9 +16,8 @@ public class CountryBuilder implements IValidatableBuilder<Country> {
 
     @Override
     public Country get() {
-        return new Country(id, name, code, dialCode,zipCodes);
+        return new Country(id, name, code, dialCode, zipCodes);
     }
-
 
 
     public CountryBuilder withId(Integer id) {
@@ -41,6 +40,7 @@ public class CountryBuilder implements IValidatableBuilder<Country> {
         this.dialCode = dialCode;
         return this;
     }
+
     public CountryBuilder withZipCodes(Set<ZipCode> zipCodes) {
         this.zipCodes = zipCodes;
         return this;

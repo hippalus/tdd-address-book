@@ -16,11 +16,11 @@ class AddressTest {
 //Todo users
         Set<Address> addresses = new HashSet<>();
         addresses.add(new Address());
-        Set<User> users=new HashSet<>();
-        users.add(new User(10, "Jack", "Wilder", "jack@gmail.com", LocalDate.of(1994, 11, 2), "5062333444",addresses));
-        Country turkey = new Country(1,"Turkey", "TR", "90",new HashSet<>());
+        Set<User> users = new HashSet<>();
+        users.add(new User(10, "Jack", "Wilder", "jack@gmail.com", LocalDate.of(1994, 11, 2), "5062333444", addresses));
+        Country turkey = new Country(1, "Turkey", "TR", "90", new HashSet<>());
 
-        Address address = new Address(1, "My Home Address", AddressType.HOME, new ZipCode(12, "3256", "Istanbul", "Pendik", "Yenisehir Neighborhood", "Marmara", turkey),"Brown Street","Go addressDetail ahead follow this rote there is on the left",users);
+        Address address = new Address(1, "My Home Address", AddressType.HOME, new ZipCode(12, "3256", "Istanbul", "Pendik", "Yenisehir Neighborhood", "Marmara", turkey), "Brown Street", "Go addressDetail ahead follow this rote there is on the left", users);
         assertThat(address.getId()).isEqualTo(1);
         assertThat(address.getTitle()).isEqualTo("My Home Address");
         assertThat(address.getAddressType()).isEqualTo(AddressType.HOME);
@@ -31,7 +31,7 @@ class AddressTest {
 
     @Test
     void should_create_by_using_constructor_with_no_args() {
-        Address address=new Address();
+        Address address = new Address();
         address.setId(1);
         address.setAddressType(AddressType.HOME);
         address.setAddressDetail("Brown Street");
@@ -51,7 +51,7 @@ class AddressTest {
 
     @Test
     void should_not_equal_with_different_class() {
-        Address address=new Address();
+        Address address = new Address();
         address.setId(1);
         address.setAddressType(AddressType.HOME);
         address.setAddressDetail("Brown Street");

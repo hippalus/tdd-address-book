@@ -1,7 +1,10 @@
 package com.addressbook.domain.model;
 
 import com.addressbook.domain.builder.CountryBuilder;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -14,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(exclude = "zipCodes")
-public class  Country {
+public class Country {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -31,7 +34,7 @@ public class  Country {
     @NotNull
     @NotBlank
     private String dialCode;
-    @OneToMany(mappedBy = "country" ,cascade = { CascadeType.MERGE,CascadeType.REFRESH })
+    @OneToMany(mappedBy = "country", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Set<ZipCode> zipCodes;
 
 

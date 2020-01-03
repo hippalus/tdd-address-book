@@ -8,11 +8,11 @@ import com.addressbook.service.dto.AddressDTO;
 import org.junit.jupiter.api.Test;
 import org.mockito.Spy;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AddressDTOMapperTest extends BaseMockitoTest {
     @Spy
-    private AddressDTOMapper addressDTOMapper=new AddressDTOMapper(new BeanValidator(),new ZipCodeDTOMapper(new BeanValidator(),new CountryDTOMapper(new BeanValidator())));
+    private AddressDTOMapper addressDTOMapper = new AddressDTOMapper(new BeanValidator(), new ZipCodeDTOMapper(new BeanValidator(), new CountryDTOMapper(new BeanValidator())));
 
     @Spy
     private BeanValidator validator;
@@ -26,14 +26,14 @@ class AddressDTOMapperTest extends BaseMockitoTest {
         Address address = addressDTOMapper.toEntity(addressDTO);
 
         assertEquals(address.getId(), addressDTO.getId());
-        assertEquals(address.getAddressDetail(),addressDTO.getAddressDetail());
-        assertEquals(address.getAddressType(),addressDTO.getAddressType());
-        assertEquals(address.getOtherDescription(),addressDTO.getOtherDescription());
-        assertEquals(address.getTitle(),addressDTO.getTitle());
-        assertEquals(address.getZipCode().getCountry().getCode(),addressDTO.getZipCode().getCountry().getCode());
-        assertEquals(address.getZipCode().getCountry().getDialCode(),addressDTO.getZipCode().getCountry().getDialCode());
-        assertEquals(address.getZipCode().getCountry().getName(),addressDTO.getZipCode().getCountry().getName());
-        assertEquals(address.getZipCode().getId(),addressDTO.getZipCode().getId());
+        assertEquals(address.getAddressDetail(), addressDTO.getAddressDetail());
+        assertEquals(address.getAddressType(), addressDTO.getAddressType());
+        assertEquals(address.getOtherDescription(), addressDTO.getOtherDescription());
+        assertEquals(address.getTitle(), addressDTO.getTitle());
+        assertEquals(address.getZipCode().getCountry().getCode(), addressDTO.getZipCode().getCountry().getCode());
+        assertEquals(address.getZipCode().getCountry().getDialCode(), addressDTO.getZipCode().getCountry().getDialCode());
+        assertEquals(address.getZipCode().getCountry().getName(), addressDTO.getZipCode().getCountry().getName());
+        assertEquals(address.getZipCode().getId(), addressDTO.getZipCode().getId());
 
 
     }
@@ -45,7 +45,7 @@ class AddressDTOMapperTest extends BaseMockitoTest {
 
         AddressDTO addressDTO = addressDTOMapper.toDto(address);
 
-          assertEquals(45,addressDTO.getId());
+        assertEquals(45, addressDTO.getId());
     }
 
 }

@@ -10,7 +10,7 @@ public class ZipCodeTest {
 
     @Test
     void should_create_by_using_constructor_with_all_args() {
-        Country turkey = new Country(1,"Turkey", "TR", "90",new HashSet<>());
+        Country turkey = new Country(1, "Turkey", "TR", "90", new HashSet<>());
 
         ZipCode zipCode = new ZipCode(12, "3256", "Istanbul", "Pendik", "Yenisehir Neighborhood", "Marmara", turkey);
 

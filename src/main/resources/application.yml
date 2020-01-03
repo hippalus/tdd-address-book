@@ -16,8 +16,8 @@ spring:
     open-in-view: true
     show-sql: true
     hibernate:
-      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
       ddl-auto: create-drop
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
   datasource:
     driverClassName: org.h2.Driver
     url: jdbc:h2:mem:addressbook

@@ -3,9 +3,9 @@ package com.addressbook.domain.enums;
 import java.util.Optional;
 
 public enum AddressType {
-    HOME,BUSINESS,OTHER;
+    HOME, BUSINESS, OTHER;
 
-    public static AddressType of(String name){
+    public static AddressType of(String name) {
         return Optional.of(name)
                 .map(String::toUpperCase)
                 .map(AddressType::valueOf)

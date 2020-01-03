@@ -1,4 +1,5 @@
 package com.addressbook.service.dto;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,8 @@ import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.Set;
 
-@Setter@Getter
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
